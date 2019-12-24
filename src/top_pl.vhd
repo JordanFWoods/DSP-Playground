@@ -30,7 +30,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
--- use work.synth_pkg.all;
+use work.synth_pkg.all;
 
 -- library sim_work;
 -- use sim_work.testbench_pkg.all;
@@ -59,6 +59,7 @@ architecture structure of top_pl is
    -------------------------
    -- Signal Declarations --
    -------------------------
+   signal r_temp_vect : std_logic_vector(temp_vect'range);
 
    ---------------------------
    -- Constant Declarations --
@@ -68,8 +69,20 @@ begin
    --------------------------
    -- Asynchronous Actions --
    --------------------------
-   TEMP_VECT <= x"DEAD_BEEF" when RST = '0' else
-               (others => '0');
+   
+   -----------------------
+   -- Processed Actions --
+   -----------------------
+   proc_rst : process (clk_i) is
+      begin
+         if rising_edge(clk_i) then
+            if RST = '1' then 
+               r_temp_vect <= (others => 'X');
+            else
+               r_temp_vect <= TEMP_VECT;
+            end if;
+         end if;
+      end process proc_rst;
 
-end architecture structure;
+      end architecture structure;
 
