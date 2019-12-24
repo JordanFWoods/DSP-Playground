@@ -59,15 +59,16 @@ architecture structure of bfm_harness is
    ----------------------------
    component clk_rst_bfm
    generic (
-      CLK_PER : time := 100 ns
+      CLK_PER    : time := 100 ns;
+      RST_SETUP  : time := 0   ns;
+      RST_PWIDTH : time := 1   us
    );
    port (
       CLK      : out   std_logic;
       RST      : out   std_logic;
-      DONE     : in    std_logic;
-      CLK_XCVR : inout clk_xcvr
+      DONE     : in    std_logic
    );
-   end component clk_rst_bfm;
+      end component clk_rst_bfm;
 
    component gen_bfm
    generic (
@@ -103,13 +104,14 @@ begin
    --------------------------
    u0_clk_rst_bfm : clk_rst_bfm
    generic map (
-      CLK_PER => 100 ns
+      CLK_PER    => 100 ns,
+      RST_SETUP  => 0 ns,
+      RST_PWIDTH => 1 us
    )
    port map (
       CLK      => clk_int,
       RST      => rst_int,
-      DONE     => DONE,
-      CLK_XCVR => CLK_XCVR
+      DONE     => DONE
    );
 
    -----------------

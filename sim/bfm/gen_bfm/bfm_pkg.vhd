@@ -39,7 +39,7 @@ library osvvm;
 context osvvm.OsvvmContext;
 
 ------------------------------------------------
--- entity: generic bfm
+-- entity: generic bfm package
 -- ADD COMMENT HERE.
 
 package bfm_pkg is
