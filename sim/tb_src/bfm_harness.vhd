@@ -62,8 +62,68 @@ architecture structure of bfm_harness is
       CLK_PER : time := 100 ns
    );
    port (
-      CLK      : out std_logic;
-      RST      : out std_logic;
-      DONE     : in  std_logic;
-      CLK_XCVR : inout clk_xcvr;
+      CLK      : out   std_logic;
+      RST      : out   std_logic;
+      DONE     : in    std_logic;
+      CLK_XCVR : inout clk_xcvr
    );
+   end component clk_rst_bfm;
+
+   component gen_bfm
+   generic (
+      G_GENERIC : boolean := false
+   );
+   port (
+      CLK       : in    std_logic;
+      RST       : in    std_logic;
+      TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
+      BFM_XCVR  : inout bfm_xcvr
+   );
+   end component gen_bfm;
+   -------------------------
+   -- Signal Declarations --
+   -------------------------
+   signal clk_int : std_logic := '0';
+   signal rst_int : std_logic := '0';
+
+   ---------------------------
+   -- Constant Declarations --
+   ---------------------------
+
+begin
+
+   --------------------------
+   -- Asynchronous Actions --
+   --------------------------
+   CLK <= clk_int;
+   RST <= rst_int;
+
+   --------------------------
+   -- Clock and Reset BFMs --
+   --------------------------
+   u0_clk_rst_bfm : clk_rst_bfm
+   generic map (
+      CLK_PER => 100 ns
+   )
+   port map (
+      CLK      => clk_int,
+      RST      => rst_int,
+      DONE     => DONE,
+      CLK_XCVR => CLK_XCVR
+   );
+
+   -----------------
+   -- Generic BFM --
+   -----------------
+   u_gen_bfm : gen_bfm
+   generic map (
+      G_GENERIC => true
+   )
+   port map (
+      CLK       => clk_int,
+      RST       => rst_int,
+      TEMP_VECT => TEMP_VECT,
+      CLK_XCVR  => CLK_XCVR
+   );
+
+end architecture structure;
