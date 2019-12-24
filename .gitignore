@@ -1,52 +1,56 @@
-# Prerequisites
-*.d
+################################################################################
+# General files
+################################################################################
+*.bak
+.SYNC/
+*.vstf
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+################################################################################
+# Simulation files
+################################################################################
+# Compile libraries
+**/sim/work
+**/sim/fmf
+**/sim/*_work
+**/sim/osvvm
+**/sim/results
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Script generated files
+**/sim/vendor_lib.ini
+**/sim/compile.do
+**/sim/compile.txt
+**/sim/*_mhal_bundle.txt
 
-# Precompiled Headers
-*.gch
-*.pch
+# Local working files
+**/sim/*.do
+**/sim/*.wlf
+**/sim/cmd.stcl
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# Scenario files
+**/sim/scenarios/*/sim.do
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+################################################################################
+# Vivado project files
+################################################################################
+# Generated files
+**/imp/*.log
+**/imp/*.rpt
+**/imp/*.hw/
+**/imp/*.srcs/sources_*/bd/
+**/imp/*.cache/
+**/imp/*.ip_user_files/
+**/imp/*.runs/
+**/imp/*.sim/
+**/.Xil/*
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+################################################################################
+# Vivado IP files
+################################################################################
+# Ignore all IP generated files except sim netlist so sims can run without
+# having to generate in Vivado.  Also track .xci files (IP definition file used
+# by Vivado to generate other files).
+**/coregen/*/**
+!**/coregen/*/*_sim_netlist.vhdl
+!**/coregen/*/mult_nco_48bit_scaled_sim_netlist.v
+**/coregen/*/vio_channelizer_sim_netlist.vhdl
+!**/coregen/*/*.xci
