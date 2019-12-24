@@ -40,3 +40,18 @@ begin
    end process main_proc;
 
    end architecture behave;
+
+   configuration template_cfg of testbench is
+      for behave -- testbench.vhd
+         for u_tcb : tcb
+            use entity work.tcb(tcb_template);
+         end for; -- tcb.vhd
+
+      -- for u_uut : top_pl
+      -- end for; -- top_pl.vhd
+
+      -- for u_bfms : bfm_harness
+      -- end for; --  bfm_harness
+
+         end for;   -- testbench.vhd
+   
