@@ -43,6 +43,7 @@ set library_file_list {
    sim_lib       {
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/tb_pkg.vhd
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/bfm_harness.vhd
+       C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/tcb_e.vhd
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/testbench.vhd}
 }
 set top_level              sim_lib.testbench
