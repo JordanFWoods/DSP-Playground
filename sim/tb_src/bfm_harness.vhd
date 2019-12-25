@@ -30,13 +30,19 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
--- use work.synth_pkg.all;
+use work.tb_pkg.all;
 
--- library sim_work;
--- use sim_work.testbench_pkg.all;
+library synth_lib;
+use synth_lib.synth_pkg.all;
+
+library clk_bfm_lib;
+use clk_bfm_lib.all;
+
+library gen_bfm_lib;
+use gen_bfm_lib.bfm_pkg.all;
 
 library osvvm;
-context osvvm;
+context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: bfm_harness
@@ -48,8 +54,7 @@ entity bfm_harness is
       RST       : out   std_logic;
       DONE      : in    std_logic;
       TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
-      CLK_XCVR  : inout clk_xcvr;
-      BFM_XCVR  : inout bfm_xcvr
+      BFM_XCVR  : inout bfm_xcvr_rec
       );
 end entity;
 
@@ -78,7 +83,7 @@ architecture structure of bfm_harness is
       CLK       : in    std_logic;
       RST       : in    std_logic;
       TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
-      BFM_XCVR  : inout bfm_xcvr
+      BFM_XCVR  : inout bfm_xcvr_rec
    );
    end component gen_bfm;
    -------------------------
@@ -125,7 +130,7 @@ begin
       CLK       => clk_int,
       RST       => rst_int,
       TEMP_VECT => TEMP_VECT,
-      CLK_XCVR  => CLK_XCVR
+      BFM_XCVR  => BFM_XCVR
    );
 
 end architecture structure;

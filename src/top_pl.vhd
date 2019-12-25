@@ -36,7 +36,7 @@ use work.synth_pkg.all;
 -- use sim_work.testbench_pkg.all;
 
 library osvvm;
-context osvvm;
+context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: Top PL
@@ -73,9 +73,9 @@ begin
    -----------------------
    -- Processed Actions --
    -----------------------
-   proc_rst : process (clk_i) is
+   proc_rst : process (CLK) is
       begin
-         if rising_edge(clk_i) then
+         if rising_edge(CLK) then
             if RST = '1' then 
                r_temp_vect <= (others => 'X');
             else

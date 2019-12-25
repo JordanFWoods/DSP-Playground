@@ -29,8 +29,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
--- use work.synth_pkg.all;
+library synth_lib;
+use synth_lib.synth_pkg.all;
 
 -- library sim_work;
 -- use sim_work.testbench_pkg.all;
@@ -65,11 +65,11 @@ package bfm_pkg is
          (req      => 'L',
          temp_vect => (others => 'Z')); 
    
-   type bfm_xcvr is record
+   type bfm_xcvr_rec is record
       toTCB   : to_tcb;
       fromTCB : from_tcb;
-   end record bfm_xcvr;
-   constant init_bfm_xcvr := 
+   end record bfm_xcvr_rec;
+   constant init_bfm_xcvr : bfm_xcvr_rec := 
          (toTCB => init_to_tcb,
         fromTCB => init_from_tcb);
 

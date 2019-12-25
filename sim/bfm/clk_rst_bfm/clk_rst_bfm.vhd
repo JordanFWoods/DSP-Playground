@@ -54,7 +54,7 @@ port (
 );
 end entity clk_rst_bfm;
 
-architecture behave of clk_rst_gen is 
+architecture behave of clk_rst_bfm is 
    signal rst_i : std_logic;
    signal clk_i : std_logic;
 begin
@@ -66,8 +66,8 @@ begin
       variable v_rv   : RandomPType;
       variable vPhase : time := 0 ns;
    begin
-      v_rv.InitSeed(clk_rst_gen'instance_name);
-      vPhase := v_rv.RandInt(0, 10) * resolution_limit;
+      v_rv.InitSeed(clk_rst_bfm'instance_name);
+      vPhase := v_rv.RandInt(0, 10) * ns;
       wait for vPhase;
       clock_loop : loop
          clk_i <= '0';

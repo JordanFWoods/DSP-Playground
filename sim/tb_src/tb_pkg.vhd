@@ -36,7 +36,8 @@ library work;
 -- use sim_work.testbench_pkg.all;
 
 library osvvm;
-context osvvm;
+context osvvm.OsvvmContext;
+
 
 ------------------------------------------------
 -- package: testbench package

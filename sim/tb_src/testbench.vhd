@@ -30,13 +30,19 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
--- use work.synth_pkg.all;
+use work.tb_pkg.all;
 
--- library sim_work;
--- use sim_work.testbench_pkg.all;
+library synth_lib;
+use synth_lib.synth_pkg.all;
+
+library clk_bfm_lib;
+use clk_bfm_lib.all;
+
+library gen_bfm_lib;
+use gen_bfm_lib.bfm_pkg.all;
 
 library osvvm;
-context osvvm;
+context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: testbench
@@ -64,8 +70,7 @@ architecture behave of testbench is
             RST       : out   std_logic;
             DONE      : in    std_logic;
             TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
-            CLK_XCVR  : inout clk_xcvr;
-            BFM_XCVR  : inout bfm_xcvr
+            BFM_XCVR  : inout bfm_xcvr_rec
             );
       end component bfm_harness;
 
@@ -77,21 +82,19 @@ architecture behave of testbench is
             CLK       : in    std_logic;
             RST       : in    std_logic;
             DONE      : out   std_logic;
-            CLK_XCVR  : inout clk_xcvr;
-            BFM_XCVR  : inout bfm_xcvr
+            BFM_XCVR  : inout bfm_xcvr_rec
             );
       end component tcb;
 
    -------------------------
    -- Signal Declarations --
    -------------------------
-   signal clk       : std_logic := '0';
-   signal rst       : std_logic := '0';
-   signal rst_n     : std_logic := '0';
-   signal done      : std_logic := '0';
+   signal clk       : std_logic    := '0';
+   signal rst       : std_logic    := '0';
+   signal rst_n     : std_logic    := '0';
+   signal done      : std_logic    := '0';
    signal temp_vect : std_logic_vector(C_DWORD-1 downto 0) := (others => '0');
-   signal clk_xcvr  : clk_xcvr := init_clk_xcvr;
-   signal bfm_xcvr  : bfm_xcvr := init_bfm_xcvr;
+   signal bfm_xcvr  : bfm_xcvr_rec := init_bfm_xcvr;
 
    ---------------------------
    -- Constant Declarations --
@@ -114,7 +117,6 @@ begin
       CLK      => clk,
       RST      => rst,
       DONE     => done,
-      CLK_XCVR => clk_xcvr,
       BFM_XCVR => bfm_xcvr
    );
 
@@ -137,7 +139,6 @@ begin
       RST       => rst,
       DONE      => done,
       TEMP_VECT => temp_vect,
-      CLK_XCVR  => clk_xcvr,
       BFM_XCVR  => bfm_xcvr
       );
 

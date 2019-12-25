@@ -30,13 +30,13 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
--- use work.synth_pkg.all;
+use work.bfm_pkg.all;
 
--- library sim_work;
--- use sim_work.testbench_pkg.all;
+library synth_lib;
+use synth_lib.synth_pkg.all;
 
 library osvvm;
-context osvvm;
+context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: generic bfm
@@ -50,7 +50,7 @@ entity gen_bfm is
       CLK       : in    std_logic;
       RST       : in    std_logic;
       TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
-      BFM_XCVR  : inout bfm_xcvr
+      BFM_XCVR  : inout bfm_xcvr_rec
    );
 end entity gen_bfm;
 
@@ -66,7 +66,7 @@ begin
       );
       SetLogEnable (
          Level  => DEBUG,
-         Enable => G_DEBUG
+         Enable => false
       );
       wait until RST = '0';
       initialized <= true;
@@ -77,7 +77,7 @@ begin
       variable vect_var : std_logic_vector(TEMP_VECT'range) := (others => '0');
    begin
       wait until rising_edge(CLK) and RST = '0';
-      vect_var  := vect_var+(0 => '1', others => '0');
+      vect_var  := std_logic_vector(unsigned(vect_var) + 1);
       TEMP_VECT <= vect_var;
    end process gen_proc;
 end architecture behave;
