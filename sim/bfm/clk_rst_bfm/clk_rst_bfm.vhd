@@ -60,7 +60,6 @@ architecture behave of clk_rst_bfm is
 begin
 
    CLK <= clk_i;
-   RST <= rst_i;
 
    proc_clk_i : process is
       variable v_rv   : RandomPType;
@@ -84,6 +83,7 @@ begin
       rst_i <= '1';
       wait for RST_PWIDTH;
       rst_i <= '0';
+      wait;
    end process proc_rst_i;
 
    proc_rst : process (clk_i) is

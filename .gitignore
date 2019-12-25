@@ -14,7 +14,8 @@
 **/lib/*_lib
 **/lib/osvvm
 **/lib/results
-
+**/lib/start_time.txt
+**/lib/*.wlf
 # Script generated files
 **/sim/vendor_lib.ini
 **/sim/compile.do

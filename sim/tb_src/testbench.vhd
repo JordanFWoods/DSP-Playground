@@ -49,7 +49,7 @@ context osvvm.OsvvmContext;
 -- ADD COMMENT HERE.
 
 entity testbench is
-   generic (G_SCENARIO : string);
+   generic (G_SCENARIO : string := "template");
 end entity;
 
 architecture behave of testbench is

@@ -54,4 +54,4 @@ begin
       -- end for; --  bfm_harness
 
          end for;   -- testbench.vhd
-   
+   end configuration;
