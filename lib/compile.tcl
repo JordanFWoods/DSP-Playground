@@ -94,7 +94,11 @@ foreach {library file_list} $library_file_list {
 set last_compile_time $time_now
 
 # Load the simulation
-eval vsim $top_level
+file mkdir  C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/
+# file attributes C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/ -owner system
+eval vsim $top_level -voptargs=+acc +nowarn8683 \
+    -wlf C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/template.wlf \
+    -l   C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/template.log
 
 # If waves are required
 if [llength $wave_patterns] {
@@ -139,4 +143,3 @@ if {[file isfile start_time.txt] == 0} {
   set total_time [expr ([clock seconds]-$start_time)/60]
   puts "Project time is $total_time minutes"
 }
-
