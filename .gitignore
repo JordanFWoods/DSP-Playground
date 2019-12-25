@@ -9,11 +9,11 @@
 # Simulation files
 ################################################################################
 # Compile libraries
-**/sim/work
-**/sim/fmf
-**/sim/*_work
-**/sim/osvvm
-**/sim/results
+**/lib/work
+**/lib/fmf
+**/lib/*_lib
+**/lib/osvvm
+**/lib/results
 
 # Script generated files
 **/sim/vendor_lib.ini
