@@ -16,6 +16,9 @@
 **/lib/results
 **/lib/start_time.txt
 **/lib/*.wlf
+**/lib/zzz\ -\ old\ comp/*
+**transcript
+
 # Script generated files
 **/sim/vendor_lib.ini
 **/sim/compile.do

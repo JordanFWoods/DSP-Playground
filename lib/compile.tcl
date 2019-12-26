@@ -7,33 +7,37 @@ puts {
 # for each new project. There should be no need to
 # modify the rest of the script.
 
-set proj  C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground
-set src   C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/src
-set sim   C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim
-set osvvm C:/Users/jorda/sandbox/OSVVM
+cd ../
+set PROJ [pwd]
+set SRC   $PROJ/src
+set SIM   $PROJ/sim
+set LIB   $PROJ/lib
+set OSV   c:/Users/jorda/sandbox/OSVVM
+cd $LIB
+echo $SRC
 
 set library_file_list {
    osvvm     { 
-       C:/Users/jorda/sandbox/OSVVM/NamePkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/OsvvmGlobalPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/VendorCovApiPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/TranscriptPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/TextUtilPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/AlertLogPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/MessagePkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/SortListPkg_int.vhd
-       C:/Users/jorda/sandbox/OSVVM/RandomBasePkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/RandomPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/CoveragePkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/MemoryPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/ScoreboardGenericPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/ScoreboardPkg_slv.vhd
-       C:/Users/jorda/sandbox/OSVVM/ScoreboardPkg_int.vhd
-       C:/Users/jorda/sandbox/OSVVM/ResolutionPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/TbUtilPkg.vhd
-       C:/Users/jorda/sandbox/OSVVM/OsvvmContext.vhd}
+       c:/Users/jorda/sandbox/OSVVM/NamePkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/OsvvmGlobalPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/VendorCovApiPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/TranscriptPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/TextUtilPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/AlertLogPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/MessagePkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/SortListPkg_int.vhd
+       c:/Users/jorda/sandbox/OSVVM/RandomBasePkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/RandomPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/CoveragePkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/MemoryPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/ScoreboardGenericPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/ScoreboardPkg_slv.vhd
+       c:/Users/jorda/sandbox/OSVVM/ScoreboardPkg_int.vhd
+       c:/Users/jorda/sandbox/OSVVM/ResolutionPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/TbUtilPkg.vhd
+       c:/Users/jorda/sandbox/OSVVM/OsvvmContext.vhd}
    synth_lib { 
-       C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/src/synth_pkg.vhd 
+       C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/src/synth_pkg.vhd
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/src/top_pl.vhd}
    clk_bfm_lib   {
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/bfm/clk_rst_bfm/clk_rst_bfm.vhd}
@@ -44,7 +48,6 @@ set library_file_list {
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/tb_pkg.vhd
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/bfm_harness.vhd
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/tcb_e.vhd
-       C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/scen/template/tcb_template.vhd
        C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/sim/tb_src/testbench.vhd}
 }
 set top_level              sim_lib.testbench
@@ -94,11 +97,13 @@ foreach {library file_list} $library_file_list {
 set last_compile_time $time_now
 
 # Load the simulation
-file mkdir  C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/
+vcom -reportprogress 300 -2008 -work sim_lib $SIM/scen/template/tcb_template.vhd
+file mkdir  ./results/
 # file attributes C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/ -owner system
-eval vsim $top_level -voptargs=+acc +nowarn8683 \
-    -wlf C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/template.wlf \
-    -l   C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/lib/results/template.log
+eval vsim $top_level -displaymsgmode both -voptargs=+acc +nowarn8683 \
+    -wlf ./results/template.wlf \
+    -l   ./results/template.log \
+    sim_lib.tcb_template -GG_SCENARIO=template
 
 # If waves are required
 if [llength $wave_patterns] {
@@ -115,12 +120,21 @@ if [llength $wave_patterns] {
 }
 
 # Run the simulation
+onbreak {resume}
+log -r /*
+coverage save -onexit ./results/loopback.ucdb
+set IgnoreWarning 1
+run 1
+set IgnoreWarning 0
 run -all
+simstats
 
 # If waves are required
 if [llength $wave_patterns] {
   if $tk_ok {wave zoomfull}
 }
+
+quit
 
 puts {
   Script commands are:
