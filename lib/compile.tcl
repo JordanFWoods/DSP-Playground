@@ -41,15 +41,17 @@ quietly set library_file_list {
        "../sim/bfm/gen_bfm/gen_bfm.vhd"}
    sim_lib       {
        "../sim/tb_src/tb_pkg.vhd"
-       "../sim/tb_src/bfm_harness.vhd"
+       "../sim/tb_src/sim_pkgs/gen_prot.vhd"
+       "../sim/tb_src/sim_pkgs/gen_res.vhd"
+       "../sim/tb_src/bfm_harness.vhd"       
        "../sim/tb_src/tcb_e.vhd"
        "../sim/tb_src/testbench.vhd"}
 }
-set top_level              sim_lib.testbench
-set wave_patterns {
+quietly set top_level              sim_lib.testbench
+quietly set wave_patterns {
                            /*
 }
-set wave_radices {
+quietly set wave_radices {
                            hexadecimal {data q}
 }
 
@@ -63,10 +65,10 @@ proc rr {} {global last_compile_time
 proc q  {} {quit -sim -force                  }
 
 # Prefer a fixed point font for the transcript
-set PrefMain(font) {Courier 10 roman normal}
+quietly set PrefMain(font) {Courier 10 roman normal}
 
 # Compile out of date files
-set time_now [clock seconds]
+quietly set time_now [clock seconds]
 if [catch {set last_compile_time}] {
   set last_compile_time 0
 }

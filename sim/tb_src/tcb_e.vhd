@@ -24,6 +24,7 @@
 -- Libraries:
 library std;
 use std.standard.all;
+use std.textio.all;
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -31,6 +32,7 @@ use ieee.numeric_std.all;
 
 library work;
 use work.tb_pkg.all;
+use work.gen_prot.all;
 
 library synth_lib;
 use synth_lib.synth_pkg.all;

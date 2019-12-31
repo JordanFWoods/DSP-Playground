@@ -34,7 +34,20 @@ begin
 
    main_proc : process
       -- main proc declarative region
+      variable line_v : line;
+      variable PT     : LinePType;
+      variable time_v : time_max;
    begin
+      wait for 10 us;
+
+      line_v := new string'("Hello VHDL World. ");
+      PT.copy(line_v.all);
+      writeline(output, line_v);
+      writeline(output, line_v);
+      line_v := new string'(PT.get(TRUE));
+      time_v := now;
+      write(line_v, to_string(time_v));
+      writeline(output, line_v);
       wait for 100 us;
       std.env.finish;
    end process main_proc;

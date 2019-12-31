@@ -46,3 +46,4 @@ simstats
 if [llength $wave_patterns] {
   if $tk_ok {wave zoomfull}
 }
+quit
