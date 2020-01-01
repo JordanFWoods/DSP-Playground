@@ -1,9 +1,6 @@
 ################################################################################
 # General files
 ################################################################################
-*.bak
-.SYNC/
-*.vstf
 
 ################################################################################
 # Simulation files
@@ -14,25 +11,11 @@
 **/lib/*_lib
 **/lib/osvvm
 **/lib/results
-**/lib/start_time.txt
-**/lib/*.wlf
-**/lib/zzz\ -\ old\ comp/*
-**transcript
+**/lib/transcript
 
 # Script generated files
-**/sim/vendor_lib.ini
-**/sim/compile.do
-**/sim/compile.txt
-**/sim/*_mhal_bundle.txt
-
 # Local working files
-**/sim/*.do
-**/sim/*.wlf
-**/sim/cmd.stcl
-
 # Scenario files
-**/sim/scenarios/*/sim.do
-
 ################################################################################
 # Vivado project files
 ################################################################################
@@ -53,8 +36,6 @@
 # Ignore all IP generated files except sim netlist so sims can run without
 # having to generate in Vivado.  Also track .xci files (IP definition file used
 # by Vivado to generate other files).
-**/coregen/*/**
-!**/coregen/*/*_sim_netlist.vhdl
-!**/coregen/*/mult_nco_48bit_scaled_sim_netlist.v
-**/coregen/*/vio_channelizer_sim_netlist.vhdl
-!**/coregen/*/*.xci
+# **/coregen/*/**
+# !**/coregen/*/*_sim_netlist.vhdl
+# !**/coregen/*/*.xci
