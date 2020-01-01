@@ -6,15 +6,18 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: general resolution sim package
 --
--- File Name:
+-- File Name: gen_res.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is a sim package to learn
+-- the basics of resolving types. This package
+-- resolves the type 'time', and is largely
+-- copied from OSVVM. 
 --
 ------------------------------------------------
 -- Manual Revision History:

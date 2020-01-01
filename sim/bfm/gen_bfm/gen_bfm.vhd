@@ -6,15 +6,17 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Generic BFM
 --
--- File Name:
+-- File Name: gen_bfm.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is a template for a generic
+-- BFM. It currently has no procedures or functions
+-- in the bfm_pkg.
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -40,8 +42,6 @@ context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: generic bfm
--- ADD COMMENT HERE.
-
 entity gen_bfm is
    generic (
       G_GENERIC : boolean := false

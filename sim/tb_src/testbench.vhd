@@ -6,15 +6,17 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Testbench
 --
--- File Name:
+-- File Name: testbench.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is the top level simulation
+-- file, which contains the TCB, DUT, and
+-- BFM Harness.
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -46,8 +48,6 @@ context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: testbench
--- ADD COMMENT HERE.
-
 entity testbench is
    generic (G_SCENARIO : string := "template");
 end entity;

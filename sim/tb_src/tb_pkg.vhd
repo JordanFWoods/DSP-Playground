@@ -6,15 +6,16 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Testbench Package
 --
--- File Name:
+-- File Name: tb_pkg.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is the specific Testbench
+-- package for this testbench environment.
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -29,20 +30,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
--- use work.synth_pkg.all;
-
--- library sim_work;
--- use sim_work.testbench_pkg.all;
-
 library osvvm;
 context osvvm.OsvvmContext;
 
-
 ------------------------------------------------
 -- package: testbench package
--- ADD COMMENT HERE.
-
 package tb_pkg is
    ---------------------------
    -- Constant Declarations --

@@ -6,15 +6,15 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Top-Level Programmable Logic
 --
--- File Name:
+-- File Name: top_pl.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: Top Level of the Synthesizable core.
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -31,9 +31,6 @@ use ieee.numeric_std.all;
 
 library work;
 use work.synth_pkg.all;
-
--- library sim_work;
--- use sim_work.testbench_pkg.all;
 
 library osvvm;
 context osvvm.OsvvmContext;
@@ -83,6 +80,5 @@ begin
             end if;
          end if;
       end process proc_rst;
-
-      end architecture structure;
-
+      
+end architecture structure;

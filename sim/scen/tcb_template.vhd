@@ -6,15 +6,16 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Template Scenario
 --
--- File Name:
+-- File Name: tcb_template.vhd
 --
--- Author:
+-- Author: jordan
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is the basic template scenario,
+-- and does nothing, but wait for 100 us. 
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -23,11 +24,8 @@
 ------------------------------------------------
 -- Libraries: NOTE - All common libs should be
 --                   in the entity file.
-
 ------------------------------------------------
 -- entity: Testbench Control Block
--- ADD COMMENT HERE.
-
 architecture behave of tcb is
  -- architecture declarative region
 begin
@@ -39,19 +37,18 @@ begin
       std.env.finish;
    end process main_proc;
 
-   end architecture behave;
+end architecture behave;
 
-   configuration template_cfg of testbench is
-      for behave -- testbench.vhd
-         for u_tcb : tcb
-            use entity work.tcb(tcb_template);
-         end for; -- tcb.vhd
-
-      -- for u_uut : top_pl
-      -- end for; -- top_pl.vhd
-
-      -- for u_bfms : bfm_harness
-      -- end for; --  bfm_harness
-
-         end for;   -- testbench.vhd
-   end configuration;
+------------------------------------------------
+-- configuration: One needed per Scenario.
+configuration template_cfg of testbench is
+   for behave -- testbench.vhd
+      for u_tcb : tcb
+         use entity work.tcb(tcb_template);
+      end for; -- tcb.vhd
+   -- for u_uut : top_pl
+   -- end for; -- top_pl.vhd
+   -- for u_bfms : bfm_harness
+   -- end for; --  bfm_harness
+   end for;   -- testbench.vhd
+end configuration;

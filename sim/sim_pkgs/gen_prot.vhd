@@ -6,15 +6,18 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: general protected sim package
 --
--- File Name:
+-- File Name: gen_prot.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is a sim package to learn
+-- the basics of protected types. This package
+-- creates a protected type to allow for
+-- returning a string in a function. 
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -30,20 +33,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
--- use work.synth_pkg.all;
-
--- library sim_work;
--- use sim_work.testbench_pkg.all;
-
 library osvvm;
 context osvvm.OsvvmContext;
 
-
 ------------------------------------------------
 -- package: testbench package
--- ADD COMMENT HERE.
-
 package gen_prot is
    ---------------------------
    -- Constant Declarations --
@@ -53,7 +47,7 @@ package gen_prot is
    type LinePType is protected
       procedure copy (S : in string);
       impure function get (EraseLine : boolean := TRUE) return string;
-      end protected LinePType;
+   end protected LinePType;
    
 end package gen_prot;
 
@@ -79,4 +73,4 @@ package body gen_prot is
       end function get;
    end protected body LinePType;
 
-   end gen_prot;
+end gen_prot;

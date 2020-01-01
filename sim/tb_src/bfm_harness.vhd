@@ -6,15 +6,17 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Bus Functional Model Harness
 --
--- File Name:
+-- File Name: bfm_harness.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This VHD wraps around the DUT,
+-- holds the individual BFMs, and takes orders
+-- from the Testbench Control Block (TCB).
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -46,8 +48,6 @@ context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: bfm_harness
--- ADD COMMENT HERE.
-
 entity bfm_harness is
    port (
       CLK       : out   std_logic;

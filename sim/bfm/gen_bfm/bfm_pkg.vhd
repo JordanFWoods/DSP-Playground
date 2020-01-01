@@ -6,15 +6,16 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: BFM Package
 --
--- File Name:
+-- File Name: bfm_pkg.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is the bfm package for the
+-- generic bfm.
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -31,9 +32,6 @@ use ieee.numeric_std.all;
 
 library synth_lib;
 use synth_lib.synth_pkg.all;
-
--- library sim_work;
--- use sim_work.testbench_pkg.all;
 
 library osvvm;
 context osvvm.OsvvmContext;

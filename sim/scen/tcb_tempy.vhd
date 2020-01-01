@@ -6,15 +6,17 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Tempy Scenario
 --
--- File Name:
+-- File Name: tcb_tempy.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This scenario is a playground to
+-- play with new features, and test that
+-- multiple scenarios can be run.
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -23,11 +25,8 @@
 ------------------------------------------------
 -- Libraries: NOTE - All common libs should be
 --                   in the entity file.
-
 ------------------------------------------------
 -- entity: Testbench Control Block
--- ADD COMMENT HERE.
-
 architecture behave of tcb is
  -- architecture declarative region
 begin
@@ -51,20 +50,18 @@ begin
       wait for 100 us;
       std.env.finish;
    end process main_proc;
+end architecture behave;
 
-   end architecture behave;
-
-   configuration tempy_cfg of testbench is
-      for behave -- testbench.vhd
-         for u_tcb : tcb
-            use entity work.tcb(tcb_tempy);
-         end for; -- tcb.vhd
-
-      -- for u_uut : top_pl
-      -- end for; -- top_pl.vhd
-
-      -- for u_bfms : bfm_harness
-      -- end for; --  bfm_harness
-
-         end for;   -- testbench.vhd
-   end configuration;
+------------------------------------------------
+-- configuration: One needed per Scenario.
+configuration tempy_cfg of testbench is
+   for behave -- testbench.vhd
+      for u_tcb : tcb
+         use entity work.tcb(tcb_tempy);
+      end for; -- tcb.vhd
+   -- for u_uut : top_pl
+   -- end for; -- top_pl.vhd
+   -- for u_bfms : bfm_harness
+   -- end for; --  bfm_harness
+   end for;   -- testbench.vhd
+end configuration;

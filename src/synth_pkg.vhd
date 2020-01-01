@@ -6,15 +6,16 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Synthesis Package
 --
--- File Name:
+-- File Name: synth_pkg.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is a generic design package that
+-- will be seen by both the design and verification side. 
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -29,19 +30,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
--- use work.synth_pkg.all;
-
--- library sim_work;
--- use sim_work.testbench_pkg.all;
-
 library osvvm;
 context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- package: synth_pkg
--- ADD COMMENT HERE.
-
 package synth_pkg is
    ---------------------------
    -- Constant Declarations --

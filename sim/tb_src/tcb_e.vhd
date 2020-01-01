@@ -6,15 +6,16 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Testbench Control Block Entity
 --
--- File Name:
+-- File Name: tcb_e.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is the entity file for
+-- each scenario
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -43,11 +44,8 @@ use gen_bfm_lib.bfm_pkg.all;
 library osvvm;
 context osvvm.OsvvmContext;
 
-
 ------------------------------------------------
 -- entity: Testbench Control Block
--- ADD COMMENT HERE.
-
 entity tcb is
    generic (
       G_SCENARIO : string

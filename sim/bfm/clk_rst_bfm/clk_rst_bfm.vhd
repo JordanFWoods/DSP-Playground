@@ -6,15 +6,16 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title:
+-- Title: Clocks and Reset BFM.
 --
--- File Name:
+-- File Name: clk_rst_bfm.vhd
 --
--- Author:
+-- Author: Jordan Woods
 --
--- HDL: VHDL-93
+-- HDL: VHDL-2008
 --
--- Description:
+-- Description: This is a generic Clock and Reset
+-- BFM, and generates a synchronous reset.
 --
 ------------------------------------------------
 -- Manual Revision History:
@@ -29,18 +30,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
--- use work.synth_pkg.all;
-
--- library sim_work;
--- use sim_work.testbench_pkg.all;
-
 library osvvm;
 context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: Clock Reset BFM
--- ADD COMMENT HERE.
 entity clk_rst_bfm is
 generic (
    CLK_PER    : time := 100 ns;
