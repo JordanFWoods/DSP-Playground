@@ -41,8 +41,8 @@ quietly set library_file_list {
        "../sim/bfm/gen_bfm/gen_bfm.vhd"}
    sim_lib       {
        "../sim/tb_src/tb_pkg.vhd"
-       "../sim/tb_src/sim_pkgs/gen_prot.vhd"
-       "../sim/tb_src/sim_pkgs/gen_res.vhd"
+       "../sim/sim_pkgs/gen_prot.vhd"
+       "../sim/sim_pkgs/gen_res.vhd"
        "../sim/tb_src/bfm_harness.vhd"       
        "../sim/tb_src/tcb_e.vhd"
        "../sim/tb_src/testbench.vhd"}

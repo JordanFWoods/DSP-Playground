@@ -24,7 +24,7 @@ quietly set tk_ok 1
 quietly if [catch {package require Tk}] {set tk_ok 0}
 
 # Load the simulation
-quietly set tcb_path ../sim/scen/$tcb_name/tcb_$tcb_name.vhd
+quietly set tcb_path ../sim/scen/tcb_$tcb_name.vhd
 vcom -reportprogress 300 -2008 -work sim_lib $tcb_path
 
 file mkdir  ./results/
