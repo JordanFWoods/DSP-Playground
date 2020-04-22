@@ -50,12 +50,15 @@ context osvvm.OsvvmContext;
 -- entity: bfm_harness
 entity bfm_harness is
    port (
-      CLK       : out   std_logic;
-      RST       : out   std_logic;
-      DONE      : in    std_logic;
-      TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
-      BFM_XCVR  : inout bfm_xcvr_rec
-      );
+      CLK          : out   std_logic;
+      RST          : out   std_logic;
+      DONE         : in    std_logic;
+      MAX10_RESETN : in    std_logic;
+      DIP_SW       : out   std_logic_vector(0 downto 0);
+      LED          : in    std_logic_vector(3 downto 0);
+      PUSH_BTN     : out   std_logic_vector(3 downto 0);
+      BFM_XCVR     : inout bfm_xcvr_rec
+   );
 end entity;
 
 architecture structure of bfm_harness is
@@ -82,7 +85,8 @@ architecture structure of bfm_harness is
    port (
       CLK       : in    std_logic;
       RST       : in    std_logic;
-      TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
+      RFD_OUT   : in    std_logic_vector;
+      RFD_IN    : out   std_logic_vector;
       BFM_XCVR  : inout bfm_xcvr_rec
    );
    end component gen_bfm;
@@ -91,7 +95,8 @@ architecture structure of bfm_harness is
    -------------------------
    signal clk_int : std_logic := '0';
    signal rst_int : std_logic := '0';
-
+   signal rfd_in  : std_logic_vector(4 downto 0);
+   
    ---------------------------
    -- Constant Declarations --
    ---------------------------
@@ -122,6 +127,8 @@ begin
    -----------------
    -- Generic BFM --
    -----------------
+   rfd_in(4)          <= DIP_SW(0);
+   rfd_in(3 downto 0) <= PUSH_BTN;
    u_gen_bfm : gen_bfm
    generic map (
       G_GENERIC => true
@@ -129,7 +136,8 @@ begin
    port map (
       CLK       => clk_int,
       RST       => rst_int,
-      TEMP_VECT => TEMP_VECT,
+      RFD_OUT   => LED,
+      RFD_IN    => rfd_in,
       BFM_XCVR  => BFM_XCVR
    );
 

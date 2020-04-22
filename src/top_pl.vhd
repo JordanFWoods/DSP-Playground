@@ -29,11 +29,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
-use work.synth_pkg.all;
+-- library work;
+-- use work.synth_pkg.all;
 
-library osvvm;
-context osvvm.OsvvmContext;
+-- library osvvm;
+-- context osvvm.OsvvmContext;
 
 ------------------------------------------------
 -- entity: Top PL
@@ -41,9 +41,11 @@ context osvvm.OsvvmContext;
 
 entity top_pl is
    port (
-      CLK       : in std_logic;
-      RST       : in std_logic;
-      TEMP_VECT : in std_logic_vector(C_DWORD-1 downto 0)
+      CLK_50       : in  std_logic;
+      MAX10_RESETN : in  std_logic;
+      DIP_SW       : in  std_logic_vector(0 downto 0);
+      LED          : out std_logic_vector(3 downto 0);
+      PUSH_BTN     : in  std_logic_vector(3 downto 0)
       );
 end entity top_pl;
 
@@ -56,7 +58,8 @@ architecture structure of top_pl is
    -------------------------
    -- Signal Declarations --
    -------------------------
-   signal r_temp_vect : std_logic_vector(temp_vect'range);
+   signal counter : unsigned(31 downto 0);
+   signal led_cnt : unsigned( 3 downto 0); 
 
    ---------------------------
    -- Constant Declarations --
@@ -66,19 +69,39 @@ begin
    --------------------------
    -- Asynchronous Actions --
    --------------------------
-   
+-- LED <= PUSH_BTN;
+
    -----------------------
    -- Processed Actions --
    -----------------------
-   proc_rst : process (CLK) is
+   out_proc : process (CLK_50) is
       begin
-         if rising_edge(CLK) then
-            if RST = '1' then 
-               r_temp_vect <= (others => 'X');
+         if rising_edge(CLK_50) then
+            if MAX10_RESETN = '0' then
+               LED <= (others => '0');
             else
-               r_temp_vect <= TEMP_VECT;
+               if DIP_SW(0) = '0' then
+                  LED <= PUSH_BTN;
+               else
+                  LED <= std_logic_vector(led_cnt); 
+               end if;
             end if;
          end if;
-      end process proc_rst;
-      
+      end process out_proc;
+
+   cntr_proc : process (CLK_50) is
+      begin
+         if rising_edge(CLK_50) then
+            if MAX10_RESETN = '0' then
+               counter <= (others => '0');
+               led_cnt <= (others => '0');
+            elsif counter = x"017D7840" then -- 250000 / 50 MHz = 0.5 s
+               counter <= (others => '0'); 
+               led_cnt <= led_cnt + 1;
+            else
+               counter <= counter + 1;
+            end if;
+         end if;
+      end process cntr_proc;
+
 end architecture structure;

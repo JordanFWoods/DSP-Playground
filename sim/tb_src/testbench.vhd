@@ -58,19 +58,24 @@ architecture behave of testbench is
    ----------------------------
       component top_pl is
          port (
-            CLK       : in std_logic;
-            RST       : in std_logic;
-            TEMP_VECT : in std_logic_vector(C_DWORD-1 downto 0)
+         CLK_50       : in  std_logic;
+         MAX10_RESETN : in  std_logic;
+         DIP_SW       : in  std_logic_vector(0 downto 0);
+         LED          : out std_logic_vector(3 downto 0);
+         PUSH_BTN     : in  std_logic_vector(3 downto 0)
             );
       end component top_pl;
 
       component bfm_harness is
          port (
-            CLK       : out   std_logic;
-            RST       : out   std_logic;
-            DONE      : in    std_logic;
-            TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
-            BFM_XCVR  : inout bfm_xcvr_rec
+            CLK          : out   std_logic;
+            RST          : out   std_logic;
+            DONE         : in    std_logic;
+            MAX10_RESETN : in    std_logic;
+            DIP_SW       : out   std_logic_vector(0 downto 0);
+            LED          : in    std_logic_vector(3 downto 0);
+            PUSH_BTN     : out   std_logic_vector(3 downto 0);
+            BFM_XCVR     : inout bfm_xcvr_rec
             );
       end component bfm_harness;
 
@@ -93,7 +98,9 @@ architecture behave of testbench is
    signal rst       : std_logic    := '0';
    signal rst_n     : std_logic    := '0';
    signal done      : std_logic    := '0';
-   signal temp_vect : std_logic_vector(C_DWORD-1 downto 0) := (others => '0');
+   signal dip_sw    : std_logic_vector(0 downto 0);
+   signal led       : std_logic_vector(3 downto 0);
+   signal push_btn  : std_logic_vector(3 downto 0);
    signal bfm_xcvr  : bfm_xcvr_rec := init_bfm_xcvr;
 
    ---------------------------
@@ -125,9 +132,11 @@ begin
    ---------------------
    u_uut : top_pl
    port map (
-      CLK       => clk,
-      RST       => rst,
-      TEMP_VECT => temp_vect
+      CLK_50       => clk,
+      MAX10_RESETN => rst_n,
+      DIP_SW       => dip_sw,
+      LED          => led,
+      PUSH_BTN     => push_btn
    );
 
    ----------------------------------
@@ -135,11 +144,14 @@ begin
    ----------------------------------
    u_bfms : bfm_harness
    port map (
-      CLK       => clk,
-      RST       => rst,
-      DONE      => done,
-      TEMP_VECT => temp_vect,
-      BFM_XCVR  => bfm_xcvr
+      CLK          => clk,
+      RST          => rst,
+      DONE         => done,
+      MAX10_RESETN => rst_n,
+      DIP_SW       => dip_sw,
+      LED          => led,
+      PUSH_BTN     => push_btn,
+      BFM_XCVR     => bfm_xcvr
       );
 
 end architecture behave;

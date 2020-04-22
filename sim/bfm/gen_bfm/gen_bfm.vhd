@@ -49,7 +49,8 @@ entity gen_bfm is
    port (
       CLK       : in    std_logic;
       RST       : in    std_logic;
-      TEMP_VECT : out   std_logic_vector(C_DWORD-1 downto 0);
+      RFD_IN    : out   std_logic_vector;
+      RFD_OUT   : in    std_logic_vector;
       BFM_XCVR  : inout bfm_xcvr_rec
    );
 end entity gen_bfm;
@@ -74,10 +75,10 @@ begin
    end process init_proc;
 
    gen_proc : process is
-      variable vect_var : std_logic_vector(TEMP_VECT'range) := (others => '0');
+      variable rfd_in_v : std_logic_vector(RFD_IN'range) := (others => '0');
    begin
       wait until rising_edge(CLK) and RST = '0';
-      vect_var  := std_logic_vector(unsigned(vect_var) + 1);
-      TEMP_VECT <= vect_var;
+      rfd_in_v  := std_logic_vector(unsigned(rfd_in_v) + 1);
+      RFD_IN <= rfd_in_v;
    end process gen_proc;
 end architecture behave;
