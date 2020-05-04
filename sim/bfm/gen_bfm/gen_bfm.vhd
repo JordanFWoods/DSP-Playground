@@ -47,11 +47,11 @@ entity gen_bfm is
       G_GENERIC : boolean := false
    );
    port (
-      CLK       : in    std_logic;
-      RST       : in    std_logic;
-      RFD_IN    : out   std_logic_vector;
-      RFD_OUT   : in    std_logic_vector;
-      BFM_XCVR  : inout bfm_xcvr_rec
+      CLK      : in    std_logic;
+      RST      : in    std_logic;
+      DISC_IN  : in    std_logic_vector(C_DISC_LEN-1 downto 0);
+      DISC_OUT : out   std_logic_vector(C_DISC_LEN-1 downto 0);
+      XCVR     : inout disc_bfm_xcvr_rec
    );
 end entity gen_bfm;
 
@@ -59,8 +59,9 @@ architecture behave of gen_bfm is
    signal initialized : boolean := false;
 begin
 
-   init_proc : process is
+   main_proc : process is
    begin 
+      XCVR <= C_INIT_BFM_XCVR;
       SetLogEnable (
          Level  => INFO,
          Enable => true 
@@ -71,14 +72,18 @@ begin
       );
       wait until RST = '0';
       initialized <= true;
-      wait;
-   end process init_proc;
 
-   gen_proc : process is
-      variable rfd_in_v : std_logic_vector(RFD_IN'range) := (others => '0');
-   begin
-      wait until rising_edge(CLK) and RST = '0';
-      rfd_in_v  := std_logic_vector(unsigned(rfd_in_v) + 1);
-      RFD_IN <= rfd_in_v;
-   end process gen_proc;
+      loop
+         WaitForTransaction (
+            Rdy => XCVR.RDY,
+            Ack => XCVR.Ack);
+
+         if XCVR.r_nwr = '1' then
+            XCVR.disc_in <= DISC_IN;
+         else
+            DISC_OUT <= XCVR.disc_out;
+         end if;
+      end loop;
+   end process main_proc;
+
 end architecture behave;

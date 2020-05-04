@@ -36,10 +36,14 @@ begin
       variable line_v : line;
       variable PT     : LinePType;
       variable time_v : time_max;
+
+      -- stimulus variables
+      variable disc_in  : std_logic_vector(C_DISC_LEN-1 downto 0);
+      variable disc_out : std_logic_vector(C_DISC_LEN-1 downto 0);
    begin
       wait for 10 us;
 
-      line_v := new string'("Hello VHDL World. ");
+      line_v := new string'("Test my LinePType");
       PT.copy(line_v.all);
       writeline(output, line_v);
       writeline(output, line_v);
@@ -48,6 +52,29 @@ begin
       write(line_v, to_string(time_v));
       writeline(output, line_v);
       wait for 100 us;
+
+      write(line_v, "Stimulating the Discretes.");
+      writeline(output, line_v);
+      for i in 1 to 2**4 loop
+         disc_out := std_logic_vector(to_unsigned(i,C_DISC_LEN));
+         write(line_v, "Setting output Discretes.");
+         writeline(output, line_v);
+         set_output_signals(
+            C_SIG    => disc_out,
+            bfm_rec  => DISC_BFM_XCVR);
+
+         wait until rising_edge(CLK);
+
+         write(line_v, "Setting input Discretes.");
+         get_input_signals(
+            sig_v   => disc_in,
+            bfm_rec  => DISC_BFM_XCVR);
+
+         Log ( LF & "Discretes  into  the core: " & to_hstring(disc_out) &
+               LF & "Discretes out of the core: " & to_hstring(disc_in));
+
+      end loop;
+
       std.env.finish;
    end process main_proc;
 end architecture behave;

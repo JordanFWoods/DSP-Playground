@@ -13,6 +13,9 @@
 **/lib/results
 **/lib/transcript
 
+# for wave.do and other temporary debugging files
+**/lib/*.do 
+
 # Script generated files
 # Local working files
 # Scenario files

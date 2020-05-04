@@ -51,10 +51,10 @@ entity tcb is
       G_SCENARIO : string
    );
    port (
-      CLK       : in    std_logic;
-      RST       : in    std_logic;
-      DONE      : out   std_logic;
-      BFM_XCVR  : inout bfm_xcvr_rec
+      CLK           : in    std_logic;
+      RST           : in    std_logic;
+      DONE          : out   std_logic;
+      DISC_BFM_XCVR : inout disc_bfm_xcvr_rec := C_INIT_BFM_XCVR
       );
 end entity tcb;
 

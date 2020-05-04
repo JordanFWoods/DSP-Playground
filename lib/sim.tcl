@@ -2,12 +2,17 @@ quietly set LIB [pwd]
 quietly cd ../sim
 quietly set SIM [pwd]
 quietly cd $LIB
+set shell [printenv shell]
 
 puts "Determine Scenario Name."
-quietly set rm_brace [split $argv \}]
-quietly set args [regexp -all -inline {\S+} [lindex $rm_brace 0]]
-quietly set ind [llength $args]
-quietly set tcb_name [lindex $args [expr {$ind-1}]]
+# if {$shell eq "/bin/sh"} {
+#   quietly set tcb_name tempy
+# } else {
+    quietly set rm_brace [split $argv \}]
+    quietly set args [regexp -all -inline {\S+} [lindex $rm_brace 0]]
+    quietly set ind [llength $args]
+    quietly set tcb_name [lindex $args [expr {$ind-1}]]
+# }
 
 echo $tcb_name
 
@@ -47,3 +52,4 @@ if [llength $wave_patterns] {
   if $tk_ok {wave zoomfull}
 }
 quit
+

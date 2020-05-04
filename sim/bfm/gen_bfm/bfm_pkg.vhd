@@ -45,39 +45,72 @@ package bfm_pkg is
    ---------------------------
    -- Constant Declarations --
    ---------------------------
-   constant gen_zeros   : std_logic_vector(C_DWORD-1 downto 0) := (others => '0');
+   constant C_DISC_LEN : integer := 32;
+   constant gen_zeros  : std_logic_vector(C_DISC_LEN-1 downto 0) := (others => '0');
 
    -----------------------
    -- Type Declarations --
    -----------------------
-   type to_tcb is record
-      rdy       : std_logic;
-   end record to_tcb;
-   constant init_to_tcb : to_tcb := (rdy => 'Z');
+   type disc_bfm_xcvr_rec is record
+      Ack       : std_logic;
+      Rdy       : std_logic;
+      r_nwr     : std_logic;
+      disc_out  : std_logic_vector(C_DISC_LEN-1 downto 0);
+      disc_in   : std_logic_vector(C_DISC_LEN-1 downto 0);
+   end record disc_bfm_xcvr_rec;
 
-   type from_tcb is record
-      req       : std_logic;
-      temp_vect : std_logic_vector(C_DWORD-1 downto 0);
-   end record from_tcb;
-   constant init_from_tcb : from_tcb :=
-         (req      => 'L',
-         temp_vect => (others => 'Z')); 
-   
-   type bfm_xcvr_rec is record
-      toTCB   : to_tcb;
-      fromTCB : from_tcb;
-   end record bfm_xcvr_rec;
-   constant init_bfm_xcvr : bfm_xcvr_rec := 
-         (toTCB => init_to_tcb,
-        fromTCB => init_from_tcb);
+   constant C_INIT_BFM_XCVR : disc_bfm_xcvr_rec := (
+                           Ack => 'Z', 
+                           Rdy => 'Z',
+                         r_nwr => 'Z',
+                      disc_out => (others => 'Z'),
+                       disc_in => (others => 'Z'));
+
 
    -----------------------------
-   -- SubRoutine Declarations --
+   -- Subroutine Declarations --
    -----------------------------
+   procedure set_output_signals (
+      constant C_SIG    : in    std_logic_vector(C_DISC_LEN-1 downto 0) := (others => '0');
+      signal   bfm_rec  : inout disc_bfm_xcvr_rec);
+
+   procedure get_input_signals (
+      variable sig_v   : out   std_logic_vector(C_DISC_LEN-1 downto 0);
+      signal   bfm_rec : inout disc_bfm_xcvr_rec);
 
    end package bfm_pkg;
 
    package body bfm_pkg is 
+
+   ----------------------------
+   -- Subroutine Definitions --
+   ----------------------------
+   procedure set_output_signals (
+      constant C_SIG    : in    std_logic_vector(C_DISC_LEN-1 downto 0) := (others => '0');
+      signal   bfm_rec  : inout disc_bfm_xcvr_rec) is
+   begin
+
+      bfm_rec.r_nwr <= '0';
+
+      RequestTransaction (
+         Rdy => bfm_rec.Rdy,
+         Ack => bfm_rec.Ack);
+
+      bfm_rec.disc_out <= C_SIG;
+   end procedure set_output_signals;
+
+   procedure get_input_signals (
+      variable sig_v   : out   std_logic_vector(C_DISC_LEN-1 downto 0);
+      signal   bfm_rec : inout disc_bfm_xcvr_rec) is
+   begin
+      bfm_rec.r_nwr <= '1';
+
+      RequestTransaction (
+         Rdy => bfm_rec.Rdy,
+         Ack => bfm_rec.Ack);
+
+      sig_v := bfm_rec.disc_in;
+   end procedure get_input_signals;
 
    end package body bfm_pkg;
  

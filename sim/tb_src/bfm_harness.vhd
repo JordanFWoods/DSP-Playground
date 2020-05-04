@@ -50,14 +50,14 @@ context osvvm.OsvvmContext;
 -- entity: bfm_harness
 entity bfm_harness is
    port (
-      CLK          : out   std_logic;
-      RST          : out   std_logic;
-      DONE         : in    std_logic;
-      MAX10_RESETN : in    std_logic;
-      DIP_SW       : out   std_logic_vector(0 downto 0);
-      LED          : in    std_logic_vector(3 downto 0);
-      PUSH_BTN     : out   std_logic_vector(3 downto 0);
-      BFM_XCVR     : inout bfm_xcvr_rec
+      CLK           : out   std_logic;
+      RST           : out   std_logic;
+      DONE          : in    std_logic;
+      MAX10_RESETN  : in    std_logic;
+      DIP_SW        : out   std_logic_vector(0 downto 0);
+      LED           : in    std_logic_vector(3 downto 0);
+      PUSH_BTN      : out   std_logic_vector(3 downto 0);
+      DISC_BFM_XCVR : inout disc_bfm_xcvr_rec
    );
 end entity;
 
@@ -83,20 +83,20 @@ architecture structure of bfm_harness is
       G_GENERIC : boolean := false
    );
    port (
-      CLK       : in    std_logic;
-      RST       : in    std_logic;
-      RFD_OUT   : in    std_logic_vector;
-      RFD_IN    : out   std_logic_vector;
-      BFM_XCVR  : inout bfm_xcvr_rec
+      CLK      : in    std_logic;
+      RST      : in    std_logic;
+      DISC_IN  : in    std_logic_vector(C_DISC_LEN-1 downto 0);
+      DISC_OUT : out   std_logic_vector(C_DISC_LEN-1 downto 0);
+      XCVR     : inout disc_bfm_xcvr_rec := C_INIT_BFM_XCVR
    );
    end component gen_bfm;
    -------------------------
    -- Signal Declarations --
    -------------------------
-   signal clk_int : std_logic := '0';
-   signal rst_int : std_logic := '0';
-   signal rfd_in  : std_logic_vector(4 downto 0);
-   
+   signal clk_int  : std_logic := '0';
+   signal rst_int  : std_logic := '0';
+   signal disc_in  : std_logic_vector(C_DISC_LEN-1 downto 0);
+   signal disc_out : std_logic_vector(C_DISC_LEN-1 downto 0);
    ---------------------------
    -- Constant Declarations --
    ---------------------------
@@ -127,8 +127,9 @@ begin
    -----------------
    -- Generic BFM --
    -----------------
-   rfd_in(4)          <= DIP_SW(0);
-   rfd_in(3 downto 0) <= PUSH_BTN;
+   DIP_SW(0)          <= disc_out(4);
+   PUSH_BTN           <= disc_out(3 downto 0);
+   disc_in(3 downto 0) <= LED;
    u_gen_bfm : gen_bfm
    generic map (
       G_GENERIC => true
@@ -136,9 +137,9 @@ begin
    port map (
       CLK       => clk_int,
       RST       => rst_int,
-      RFD_OUT   => LED,
-      RFD_IN    => rfd_in,
-      BFM_XCVR  => BFM_XCVR
+      DISC_OUT  => disc_out,
+      DISC_IN   => disc_in,
+      XCVR      => DISC_BFM_XCVR
    );
 
 end architecture structure;

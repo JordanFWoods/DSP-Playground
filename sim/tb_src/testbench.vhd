@@ -68,14 +68,14 @@ architecture behave of testbench is
 
       component bfm_harness is
          port (
-            CLK          : out   std_logic;
-            RST          : out   std_logic;
-            DONE         : in    std_logic;
-            MAX10_RESETN : in    std_logic;
-            DIP_SW       : out   std_logic_vector(0 downto 0);
-            LED          : in    std_logic_vector(3 downto 0);
-            PUSH_BTN     : out   std_logic_vector(3 downto 0);
-            BFM_XCVR     : inout bfm_xcvr_rec
+            CLK           : out   std_logic;
+            RST           : out   std_logic;
+            DONE          : in    std_logic;
+            MAX10_RESETN  : in    std_logic;
+            DIP_SW        : out   std_logic_vector(0 downto 0);
+            LED           : in    std_logic_vector(3 downto 0);
+            PUSH_BTN      : out   std_logic_vector(3 downto 0);
+            DISC_BFM_XCVR : inout disc_bfm_xcvr_rec
             );
       end component bfm_harness;
 
@@ -84,24 +84,24 @@ architecture behave of testbench is
             G_SCENARIO : string := G_SCENARIO
          );
          port (
-            CLK       : in    std_logic;
-            RST       : in    std_logic;
-            DONE      : out   std_logic;
-            BFM_XCVR  : inout bfm_xcvr_rec
+            CLK           : in    std_logic;
+            RST           : in    std_logic;
+            DONE          : out   std_logic;
+            DISC_BFM_XCVR : inout disc_bfm_xcvr_rec
             );
       end component tcb;
 
    -------------------------
    -- Signal Declarations --
    -------------------------
-   signal clk       : std_logic    := '0';
-   signal rst       : std_logic    := '0';
-   signal rst_n     : std_logic    := '0';
-   signal done      : std_logic    := '0';
-   signal dip_sw    : std_logic_vector(0 downto 0);
-   signal led       : std_logic_vector(3 downto 0);
-   signal push_btn  : std_logic_vector(3 downto 0);
-   signal bfm_xcvr  : bfm_xcvr_rec := init_bfm_xcvr;
+   signal clk           : std_logic    := '0';
+   signal rst           : std_logic    := '0';
+   signal rst_n         : std_logic    := '0';
+   signal done          : std_logic    := '0';
+   signal dip_sw        : std_logic_vector(0 downto 0);
+   signal led           : std_logic_vector(3 downto 0);
+   signal push_btn      : std_logic_vector(3 downto 0);
+   signal disc_bfm_xcvr : disc_bfm_xcvr_rec; -- := C_INIT_BFM_XCVR;
 
    ---------------------------
    -- Constant Declarations --
@@ -121,10 +121,10 @@ begin
    generic map (
       G_SCENARIO => G_SCENARIO
    )  port map (
-      CLK      => clk,
-      RST      => rst,
-      DONE     => done,
-      BFM_XCVR => bfm_xcvr
+      CLK           => clk,
+      RST           => rst,
+      DONE          => done,
+      DISC_BFM_XCVR => disc_bfm_xcvr
    );
 
    ---------------------
@@ -144,14 +144,14 @@ begin
    ----------------------------------
    u_bfms : bfm_harness
    port map (
-      CLK          => clk,
-      RST          => rst,
-      DONE         => done,
-      MAX10_RESETN => rst_n,
-      DIP_SW       => dip_sw,
-      LED          => led,
-      PUSH_BTN     => push_btn,
-      BFM_XCVR     => bfm_xcvr
+      CLK           => clk,
+      RST           => rst,
+      DONE          => done,
+      MAX10_RESETN  => rst_n,
+      DIP_SW        => dip_sw,
+      LED           => led,
+      PUSH_BTN      => push_btn,
+      DISC_BFM_XCVR => disc_bfm_xcvr
       );
 
 end architecture behave;
