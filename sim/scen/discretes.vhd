@@ -6,9 +6,9 @@
 -- Escondido CA, 92029
 --
 ------------------------------------------------
--- Title: Tempy Scenario
+-- Title: discretes Scenario
 --
--- File Name: tcb_tempy.vhd
+-- File Name: discretes.vhd
 --
 -- Author: Jordan Woods
 --
@@ -81,10 +81,10 @@ end architecture behave;
 
 ------------------------------------------------
 -- configuration: One needed per Scenario.
-configuration tempy_cfg of testbench is
+configuration discretes_cfg of testbench is
    for behave -- testbench.vhd
       for u_tcb : tcb
-         use entity work.tcb(tcb_tempy);
+         use entity work.tcb(discretes);
       end for; -- tcb.vhd
    -- for u_uut : top_pl
    -- end for; -- top_pl.vhd

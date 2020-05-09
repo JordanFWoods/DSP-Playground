@@ -12,6 +12,9 @@ quietly set OSV   c:/Users/jorda/sandbox/OSVVM
 quietly cd $LIB
 
 quietly set library_file_list {
+   synth_lib { 
+       "../src/synth_pkg.vhd"
+       "../src/top_pl.vhd"}
    osvvm     { 
        "../../../OSVVM/NamePkg.vhd"
        "../../../OSVVM/OsvvmGlobalPkg.vhd"
@@ -31,14 +34,11 @@ quietly set library_file_list {
        "../../../OSVVM/ResolutionPkg.vhd"
        "../../../OSVVM/TbUtilPkg.vhd"
        "../../../OSVVM/OsvvmContext.vhd"}
-   synth_lib { 
-       "../src/synth_pkg.vhd"
-       "../src/top_pl.vhd"}
    clk_bfm_lib   {
        "../sim/bfm/clk_rst_bfm/clk_rst_bfm.vhd"}
-   gen_bfm_lib   {
-       "../sim/bfm/gen_bfm/bfm_pkg.vhd"
-       "../sim/bfm/gen_bfm/gen_bfm.vhd"}
+   disc_bfm_lib   {
+       "../sim/bfm/disc_bfm/bfm_pkg.vhd"
+       "../sim/bfm/disc_bfm/disc_bfm.vhd"}
    sim_lib       {
        "../sim/tb_src/tb_pkg.vhd"
        "../sim/sim_pkgs/gen_prot.vhd"

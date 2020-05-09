@@ -15,7 +15,7 @@
 -- HDL: VHDL-2008
 --
 -- Description: This is the bfm package for the
--- generic bfm.
+-- discrete bfm.
 --
 ------------------------------------------------
 -- Manual Revision History:

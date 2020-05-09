@@ -38,8 +38,8 @@ use work.gen_prot.all;
 library synth_lib;
 use synth_lib.synth_pkg.all;
 
-library gen_bfm_lib;
-use gen_bfm_lib.bfm_pkg.all;
+library disc_bfm_lib;
+use disc_bfm_lib.bfm_pkg.all;
 
 library osvvm;
 context osvvm.OsvvmContext;

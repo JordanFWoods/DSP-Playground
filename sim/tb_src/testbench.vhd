@@ -40,8 +40,8 @@ use synth_lib.synth_pkg.all;
 library clk_bfm_lib;
 use clk_bfm_lib.all;
 
-library gen_bfm_lib;
-use gen_bfm_lib.bfm_pkg.all;
+library disc_bfm_lib;
+use disc_bfm_lib.bfm_pkg.all;
 
 library osvvm;
 context osvvm.OsvvmContext;

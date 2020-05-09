@@ -8,7 +8,7 @@
 ------------------------------------------------
 -- Title: Template Scenario
 --
--- File Name: tcb_template.vhd
+-- File Name: template.vhd
 --
 -- Author: jordan
 --
@@ -44,7 +44,7 @@ end architecture behave;
 configuration template_cfg of testbench is
    for behave -- testbench.vhd
       for u_tcb : tcb
-         use entity work.tcb(tcb_template);
+         use entity work.tcb(template);
       end for; -- tcb.vhd
    -- for u_uut : top_pl
    -- end for; -- top_pl.vhd

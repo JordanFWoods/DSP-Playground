@@ -40,8 +40,8 @@ use synth_lib.synth_pkg.all;
 library clk_bfm_lib;
 use clk_bfm_lib.all;
 
-library gen_bfm_lib;
-use gen_bfm_lib.bfm_pkg.all;
+library disc_bfm_lib;
+use disc_bfm_lib.bfm_pkg.all;
 
 library osvvm;
 context osvvm.OsvvmContext;
@@ -78,7 +78,7 @@ architecture structure of bfm_harness is
    );
       end component clk_rst_bfm;
 
-   component gen_bfm
+   component disc_bfm
    generic (
       G_GENERIC : boolean := false
    );
@@ -89,7 +89,7 @@ architecture structure of bfm_harness is
       DISC_OUT : out   std_logic_vector(C_DISC_LEN-1 downto 0);
       XCVR     : inout disc_bfm_xcvr_rec := C_INIT_BFM_XCVR
    );
-   end component gen_bfm;
+   end component disc_bfm;
    -------------------------
    -- Signal Declarations --
    -------------------------
@@ -130,7 +130,7 @@ begin
    DIP_SW(0)          <= disc_out(4);
    PUSH_BTN           <= disc_out(3 downto 0);
    disc_in(3 downto 0) <= LED;
-   u_gen_bfm : gen_bfm
+   u_disc_bfm : disc_bfm
    generic map (
       G_GENERIC => true
    )
