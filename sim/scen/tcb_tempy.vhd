@@ -53,11 +53,11 @@ begin
       writeline(output, line_v);
       wait for 100 us;
 
-      write(line_v, "Stimulating the Discretes.");
+      write(line_v, string'("Stimulating the Discretes."));
       writeline(output, line_v);
       for i in 1 to 2**4 loop
          disc_out := std_logic_vector(to_unsigned(i,C_DISC_LEN));
-         write(line_v, "Setting output Discretes.");
+         write(line_v, string'("Setting output Discretes."));
          writeline(output, line_v);
          set_output_signals(
             C_SIG    => disc_out,
@@ -65,7 +65,7 @@ begin
 
          wait until rising_edge(CLK);
 
-         write(line_v, "Setting input Discretes.");
+         write(line_v, string'("Setting input Discretes."));
          get_input_signals(
             sig_v   => disc_in,
             bfm_rec  => DISC_BFM_XCVR);
