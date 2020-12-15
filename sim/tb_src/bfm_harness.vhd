@@ -34,9 +34,6 @@ use ieee.numeric_std.all;
 library work;
 use work.tb_pkg.all;
 
-library synth_lib;
-use synth_lib.synth_pkg.all;
-
 library clk_bfm_lib;
 use clk_bfm_lib.all;
 

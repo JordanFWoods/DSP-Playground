@@ -34,9 +34,6 @@ use ieee.numeric_std.all;
 library work;
 use work.tb_pkg.all;
 
-library synth_lib;
-use synth_lib.synth_pkg.all;
-
 library clk_bfm_lib;
 use clk_bfm_lib.all;
 
@@ -106,7 +103,7 @@ architecture behave of testbench is
    ---------------------------
    -- Constant Declarations --
    ---------------------------
-   constant zeros   : std_logic_vector(C_DWORD-1 downto 0) := (others => '0');
+   constant zeros   : std_logic_vector(7 downto 0) := (others => '0');
 
 begin
    --------------------------

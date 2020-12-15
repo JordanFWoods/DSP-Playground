@@ -35,9 +35,6 @@ library work;
 use work.tb_pkg.all;
 use work.gen_prot.all;
 
-library synth_lib;
-use synth_lib.synth_pkg.all;
-
 library disc_bfm_lib;
 use disc_bfm_lib.bfm_pkg.all;
 
