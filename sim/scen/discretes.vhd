@@ -55,7 +55,7 @@ begin
 
       write(line_v, string'("Stimulating the Discretes."));
       writeline(output, line_v);
-      for i in 1 to 2**4 loop
+      for i in 1 to 2**5 loop
          disc_out := std_logic_vector(to_unsigned(i,C_DISC_LEN));
          write(line_v, string'("Setting output Discretes."));
          writeline(output, line_v);

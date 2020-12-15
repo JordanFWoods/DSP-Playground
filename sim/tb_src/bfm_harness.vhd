@@ -127,8 +127,8 @@ begin
    -----------------
    -- Generic BFM --
    -----------------
-   DIP_SW(0)          <= disc_out(4);
-   PUSH_BTN           <= disc_out(3 downto 0);
+   DIP_SW(0)           <= disc_out(4);
+   PUSH_BTN            <= disc_out(3 downto 0);
    disc_in(3 downto 0) <= LED;
    u_disc_bfm : disc_bfm
    generic map (

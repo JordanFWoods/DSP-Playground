@@ -1,5 +1,5 @@
 Flow report for top_pl
-Mon Apr 20 22:57:21 2020
+Fri May 08 22:17:38 2020
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -41,7 +41,7 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Mon Apr 20 22:57:21 2020       ;
+; Flow Status                        ; Successful - Fri May 08 22:17:38 2020       ;
 ; Quartus Prime Version              ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
 ; Revision Name                      ; top_pl                                      ;
 ; Top-level Entity Name              ; top_pl                                      ;
@@ -67,7 +67,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/20/2020 22:55:47 ;
+; Start date & time ; 05/08/2020 22:16:34 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; top_pl              ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ agreement for further details.
 +-------------------------------------+---------------------------------+---------------+-------------+----------------+
 ; Assignment Name                     ; Value                           ; Default Value ; Entity Name ; Section Id     ;
 +-------------------------------------+---------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 273184146886548.158744854711212 ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID               ; 273184146886548.158900139304304 ; --            ; --          ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                            ; --            ; --          ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)          ; <None>        ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                              ; --            ; --          ; --             ;
@@ -95,12 +95,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:24     ; 1.0                     ; 4970 MB             ; 00:01:03                           ;
-; Fitter                    ; 00:00:17     ; 1.0                     ; 5892 MB             ; 00:00:26                           ;
-; Assembler                 ; 00:00:08     ; 1.0                     ; 4871 MB             ; 00:00:07                           ;
-; TimeQuest Timing Analyzer ; 00:00:05     ; 1.0                     ; 5021 MB             ; 00:00:05                           ;
-; EDA Netlist Writer        ; 00:00:01     ; 1.0                     ; 4830 MB             ; 00:00:02                           ;
-; Total                     ; 00:00:55     ; --                      ; --                  ; 00:01:43                           ;
+; Analysis & Synthesis      ; 00:00:16     ; 1.0                     ; 4975 MB             ; 00:00:29                           ;
+; Fitter                    ; 00:00:15     ; 1.0                     ; 5878 MB             ; 00:00:12                           ;
+; Assembler                 ; 00:00:04     ; 1.0                     ; 4871 MB             ; 00:00:04                           ;
+; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 5021 MB             ; 00:00:02                           ;
+; EDA Netlist Writer        ; 00:00:01     ; 1.0                     ; 4828 MB             ; 00:00:01                           ;
+; Total                     ; 00:00:40     ; --                      ; --                  ; 00:00:48                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

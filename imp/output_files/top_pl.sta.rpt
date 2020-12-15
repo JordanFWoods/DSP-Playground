@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for top_pl
-Mon Apr 20 22:57:11 2020
+Fri May 08 22:17:30 2020
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -103,7 +103,7 @@ agreement for further details.
 +---------------+--------+--------------------------+
 ; SDC File Path ; Status ; Read at                  ;
 +---------------+--------+--------------------------+
-; top_pl.sdc    ; OK     ; Mon Apr 20 22:57:07 2020 ;
+; top_pl.sdc    ; OK     ; Fri May 08 22:17:28 2020 ;
 +---------------+--------+--------------------------+
 
 
@@ -140,7 +140,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +--------+-------+-------------------+
 ; Clock  ; Slack ; End Point TNS     ;
 +--------+-------+-------------------+
-; CLK_50 ; 0.323 ; 0.000             ;
+; CLK_50 ; 0.324 ; 0.000             ;
 +--------+-------+-------------------+
 
 
@@ -231,7 +231,7 @@ No synchronizer chains to report.
 +--------+-------+-------------------+
 ; Clock  ; Slack ; End Point TNS     ;
 +--------+-------+-------------------+
-; CLK_50 ; 5.695 ; 0.000             ;
+; CLK_50 ; 5.410 ; 0.000             ;
 +--------+-------+-------------------+
 
 
@@ -240,7 +240,7 @@ No synchronizer chains to report.
 +--------+-------+------------------+
 ; Clock  ; Slack ; End Point TNS    ;
 +--------+-------+------------------+
-; CLK_50 ; 0.147 ; 0.000            ;
+; CLK_50 ; 0.148 ; 0.000            ;
 +--------+-------+------------------+
 
 
@@ -276,8 +276,8 @@ No synchronizer chains to report.
 +------------------+-------+-------+----------+---------+---------------------+
 ; Clock            ; Setup ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
 +------------------+-------+-------+----------+---------+---------------------+
-; Worst-case Slack ; 2.244 ; 0.147 ; N/A      ; N/A     ; 4.296               ;
-;  CLK_50          ; 2.244 ; 0.147 ; N/A      ; N/A     ; 4.296               ;
+; Worst-case Slack ; 2.244 ; 0.148 ; N/A      ; N/A     ; 4.296               ;
+;  CLK_50          ; 2.244 ; 0.148 ; N/A      ; N/A     ; 4.296               ;
 ; Design-wide TNS  ; 0.0   ; 0.0   ; 0.0      ; 0.0     ; 0.0                 ;
 ;  CLK_50          ; 0.000 ; 0.000 ; N/A      ; N/A     ; 0.000               ;
 +------------------+-------+-------+----------+---------+---------------------+
@@ -301,9 +301,9 @@ No synchronizer chains to report.
 +---------------------+-----------------------+-----------------+-----------------+
 ; Pin                 ; I/O Standard          ; 10-90 Rise Time ; 90-10 Fall Time ;
 +---------------------+-----------------------+-----------------+-----------------+
+; MAX10_RESETN        ; 3.3-V LVCMOS          ; 2640 ps         ; 2640 ps         ;
 ; PUSH_BTN[0]         ; 1.2 V                 ; 960 ps          ; 960 ps          ;
 ; DIP_SW[0]           ; 1.2 V                 ; 960 ps          ; 960 ps          ;
-; MAX10_RESETN        ; 3.3-V LVCMOS          ; 2640 ps         ; 2640 ps         ;
 ; CLK_50              ; 3.3-V LVCMOS          ; 2640 ps         ; 2640 ps         ;
 ; PUSH_BTN[1]         ; 1.2 V                 ; 960 ps          ; 960 ps          ;
 ; PUSH_BTN[2]         ; 1.2 V                 ; 960 ps          ; 960 ps          ;
@@ -418,7 +418,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime TimeQuest Timing Analyzer
     Info: Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
-    Info: Processing started: Mon Apr 20 22:57:05 2020
+    Info: Processing started: Fri May 08 22:17:26 2020
 Info: Command: quartus_sta top_pl_2015 -c top_pl
 Info: qsta_default_script.tcl version: #1
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -434,10 +434,10 @@ Info (332146): Worst-case setup slack is 2.244
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
     Info (332119):     2.244               0.000 CLK_50 
-Info (332146): Worst-case hold slack is 0.323
+Info (332146): Worst-case hold slack is 0.324
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.323               0.000 CLK_50 
+    Info (332119):     0.324               0.000 CLK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is 4.528
@@ -465,14 +465,14 @@ Info (332146): Worst-case minimum pulse width slack is 4.534
     Info (332119):     4.534               0.000 CLK_50 
 Info: Analyzing Fast 1200mV 0C Model
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
-Info (332146): Worst-case setup slack is 5.695
+Info (332146): Worst-case setup slack is 5.410
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     5.695               0.000 CLK_50 
-Info (332146): Worst-case hold slack is 0.147
+    Info (332119):     5.410               0.000 CLK_50 
+Info (332146): Worst-case hold slack is 0.148
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.147               0.000 CLK_50 
+    Info (332119):     0.148               0.000 CLK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is 4.296
@@ -483,8 +483,8 @@ Info (332101): Design is fully constrained for setup requirements
 Info (332101): Design is fully constrained for hold requirements
 Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 1 warning
     Info: Peak virtual memory: 5021 megabytes
-    Info: Processing ended: Mon Apr 20 22:57:11 2020
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:05
+    Info: Processing ended: Fri May 08 22:17:30 2020
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:02
 
 

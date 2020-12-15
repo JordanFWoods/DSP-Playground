@@ -1,5 +1,5 @@
 Fitter report for top_pl
-Mon Apr 20 22:56:37 2020
+Fri May 08 22:17:10 2020
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -39,10 +39,8 @@ Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
  31. I/O Rules Matrix
  32. Fitter Device Options
  33. Operating Settings and Conditions
- 34. Estimated Delay Added for Hold Timing Summary
- 35. Estimated Delay Added for Hold Timing Details
- 36. Fitter Messages
- 37. Fitter Suppressed Messages
+ 34. Fitter Messages
+ 35. Fitter Suppressed Messages
 
 
 
@@ -69,7 +67,7 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Mon Apr 20 22:56:37 2020       ;
+; Fitter Status                      ; Successful - Fri May 08 22:17:10 2020       ;
 ; Quartus Prime Version              ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
 ; Revision Name                      ; top_pl                                      ;
 ; Top-level Entity Name              ; top_pl                                      ;
@@ -274,8 +272,8 @@ The pin-out file can be found in C:/Users/jorda/sandbox/JordanFWoods/DSP-Playgro
 ; Remote update blocks                        ; 0 / 1 ( 0 % )         ;
 ; Oscillator blocks                           ; 0 / 1 ( 0 % )         ;
 ; Impedance control blocks                    ; 0 / 1 ( 0 % )         ;
-; Average interconnect usage (total/H/V)      ; 0.0% / 0.1% / 0.0%    ;
-; Peak interconnect usage (total/H/V)         ; 0.4% / 0.4% / 0.4%    ;
+; Average interconnect usage (total/H/V)      ; 0.1% / 0.0% / 0.1%    ;
+; Peak interconnect usage (total/H/V)         ; 0.6% / 0.3% / 1.1%    ;
 ; Maximum fan-out                             ; 40                    ;
 ; Highest non-global fan-out                  ; 36                    ;
 ; Total fan-out                               ; 280                   ;
@@ -931,13 +929,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; LED[1]       ; Output   ; --            ; --            ; --                    ; (0) 0 ps ; --   ;
 ; LED[2]       ; Output   ; --            ; --            ; --                    ; (0) 0 ps ; --   ;
 ; LED[3]       ; Output   ; --            ; --            ; --                    ; (0) 0 ps ; --   ;
-; PUSH_BTN[0]  ; Input    ; --            ; (6) 873 ps    ; --                    ; --       ; --   ;
-; DIP_SW[0]    ; Input    ; --            ; (6) 873 ps    ; --                    ; --       ; --   ;
-; MAX10_RESETN ; Input    ; --            ; (6) 868 ps    ; --                    ; --       ; --   ;
+; MAX10_RESETN ; Input    ; (6) 868 ps    ; --            ; --                    ; --       ; --   ;
+; PUSH_BTN[0]  ; Input    ; (6) 873 ps    ; --            ; --                    ; --       ; --   ;
+; DIP_SW[0]    ; Input    ; (6) 873 ps    ; --            ; --                    ; --       ; --   ;
 ; CLK_50       ; Input    ; (0) 0 ps      ; --            ; --                    ; --       ; --   ;
-; PUSH_BTN[1]  ; Input    ; (6) 873 ps    ; --            ; --                    ; --       ; --   ;
+; PUSH_BTN[1]  ; Input    ; --            ; (6) 873 ps    ; --                    ; --       ; --   ;
 ; PUSH_BTN[2]  ; Input    ; (6) 873 ps    ; --            ; --                    ; --       ; --   ;
-; PUSH_BTN[3]  ; Input    ; --            ; (6) 873 ps    ; --                    ; --       ; --   ;
+; PUSH_BTN[3]  ; Input    ; (6) 873 ps    ; --            ; --                    ; --       ; --   ;
 +--------------+----------+---------------+---------------+-----------------------+----------+------+
 
 
@@ -946,41 +944,41 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------+-------------------+---------+
 ; Source Pin / Fanout ; Pad To Core Index ; Setting ;
 +---------------------+-------------------+---------+
-; PUSH_BTN[0]         ;                   ;         ;
-;      - LED~0        ; 1                 ; 6       ;
-; DIP_SW[0]           ;                   ;         ;
-;      - LED~0        ; 1                 ; 6       ;
-;      - LED~1        ; 1                 ; 6       ;
-;      - LED~2        ; 1                 ; 6       ;
-;      - LED~3        ; 1                 ; 6       ;
 ; MAX10_RESETN        ;                   ;         ;
-;      - LED~0        ; 1                 ; 6       ;
-;      - LED~1        ; 1                 ; 6       ;
-;      - LED~2        ; 1                 ; 6       ;
-;      - LED~3        ; 1                 ; 6       ;
-;      - led_cnt~0    ; 1                 ; 6       ;
-;      - led_cnt[0]~1 ; 1                 ; 6       ;
-;      - led_cnt~2    ; 1                 ; 6       ;
-;      - led_cnt~3    ; 1                 ; 6       ;
-;      - led_cnt~4    ; 1                 ; 6       ;
+;      - LED~0        ; 0                 ; 6       ;
+;      - LED~1        ; 0                 ; 6       ;
+;      - LED~2        ; 0                 ; 6       ;
+;      - LED~3        ; 0                 ; 6       ;
+;      - led_cnt~0    ; 0                 ; 6       ;
+;      - led_cnt[0]~1 ; 0                 ; 6       ;
+;      - led_cnt~2    ; 0                 ; 6       ;
+;      - led_cnt~3    ; 0                 ; 6       ;
+;      - led_cnt~4    ; 0                 ; 6       ;
+; PUSH_BTN[0]         ;                   ;         ;
+;      - LED~0        ; 0                 ; 6       ;
+; DIP_SW[0]           ;                   ;         ;
+;      - LED~0        ; 0                 ; 6       ;
+;      - LED~1        ; 0                 ; 6       ;
+;      - LED~2        ; 0                 ; 6       ;
+;      - LED~3        ; 0                 ; 6       ;
 ; CLK_50              ;                   ;         ;
 ; PUSH_BTN[1]         ;                   ;         ;
-;      - LED~1        ; 0                 ; 6       ;
+;      - LED~1        ; 1                 ; 6       ;
 ; PUSH_BTN[2]         ;                   ;         ;
 ;      - LED~2        ; 0                 ; 6       ;
 ; PUSH_BTN[3]         ;                   ;         ;
-;      - LED~3        ; 1                 ; 6       ;
+;      - LED~3        ; 0                 ; 6       ;
 +---------------------+-------------------+---------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Control Signals                                                                                                                                        ;
-+--------------+--------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
-; Name         ; Location           ; Fan-Out ; Usage                     ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+--------------+--------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
-; CLK_50       ; PIN_J10            ; 40      ; Clock                     ; yes    ; Global Clock         ; GCLK14           ; --                        ;
-; led_cnt[0]~1 ; LCCOMB_X35_Y38_N18 ; 36      ; Clock enable, Sync. clear ; no     ; --                   ; --               ; --                        ;
-+--------------+--------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                       ;
++--------------+-------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
+; Name         ; Location          ; Fan-Out ; Usage                     ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++--------------+-------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
+; CLK_50       ; PIN_J10           ; 40      ; Clock                     ; yes    ; Global Clock         ; GCLK14           ; --                        ;
+; led_cnt[0]~1 ; LCCOMB_X71_Y30_N2 ; 36      ; Clock enable, Sync. clear ; no     ; --                   ; --               ; --                        ;
++--------------+-------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------+
@@ -997,15 +995,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+------------------------+
 ; Routing Resource Type ; Usage                  ;
 +-----------------------+------------------------+
-; Block interconnects   ; 52 / 148,641 ( < 1 % ) ;
-; C16 interconnects     ; 9 / 5,382 ( < 1 % )    ;
-; C4 interconnects      ; 11 / 106,704 ( < 1 % ) ;
-; Direct links          ; 24 / 148,641 ( < 1 % ) ;
+; Block interconnects   ; 51 / 148,641 ( < 1 % ) ;
+; C16 interconnects     ; 8 / 5,382 ( < 1 % )    ;
+; C4 interconnects      ; 34 / 106,704 ( < 1 % ) ;
+; Direct links          ; 13 / 148,641 ( < 1 % ) ;
 ; Global clocks         ; 1 / 20 ( 5 % )         ;
-; Local interconnects   ; 46 / 49,760 ( < 1 % )  ;
+; Local interconnects   ; 47 / 49,760 ( < 1 % )  ;
 ; NSLEEPs               ; 0 / 500 ( 0 % )        ;
-; R24 interconnects     ; 10 / 5,406 ( < 1 % )   ;
-; R4 interconnects      ; 34 / 147,764 ( < 1 % ) ;
+; R24 interconnects     ; 15 / 5,406 ( < 1 % )   ;
+; R4 interconnects      ; 11 / 147,764 ( < 1 % ) ;
 +-----------------------+------------------------+
 
 
@@ -1206,9 +1204,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; LED[1]             ; Pass      ; Pass         ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
 ; LED[2]             ; Pass      ; Pass         ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
 ; LED[3]             ; Pass      ; Pass         ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
+; MAX10_RESETN       ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
 ; PUSH_BTN[0]        ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
 ; DIP_SW[0]          ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
-; MAX10_RESETN       ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
 ; CLK_50             ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
 ; PUSH_BTN[1]        ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
 ; PUSH_BTN[2]        ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ;
@@ -1251,27 +1249,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Low Junction Temperature  ; 0 °C   ;
 ; High Junction Temperature ; 85 °C  ;
 +---------------------------+--------+
-
-
-+------------------------------------------------------------+
-; Estimated Delay Added for Hold Timing Summary              ;
-+-----------------+----------------------+-------------------+
-; Source Clock(s) ; Destination Clock(s) ; Delay Added in ns ;
-+-----------------+----------------------+-------------------+
-; I/O             ; CLK_50               ; 2.2               ;
-+-----------------+----------------------+-------------------+
-Note: For more information on problematic transfers, consider running the Fitter again with the Optimize hold timing option (Settings Menu) turned off.
-This will disable optimization of problematic paths and expose them for further analysis using the TimeQuest Timing Analyzer.
-
-
-+------------------------------------------------------------+
-; Estimated Delay Added for Hold Timing Details              ;
-+-----------------+----------------------+-------------------+
-; Source Register ; Destination Register ; Delay Added in ns ;
-+-----------------+----------------------+-------------------+
-; MAX10_RESETN    ; led_cnt[0]           ; 0.610             ;
-+-----------------+----------------------+-------------------+
-Note: This table only shows the top 1 path(s) that have the largest delay added for hold.
 
 
 +-----------------+
@@ -1320,19 +1297,19 @@ Info (170137): Fitter placement was successful
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:01
 Info (170193): Fitter routing operations beginning
 Info (170195): Router estimated average interconnect usage is 0% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 0% of the available device resources in the region that extends from location X33_Y33 to location X44_Y43
+    Info (170196): Router estimated peak interconnect usage is 0% of the available device resources in the region that extends from location X67_Y22 to location X78_Y32
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
-Info (11888): Total time spent on timing analysis during the Fitter is 0.15 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.10 seconds.
 Info (334003): Started post-fitting delay annotation
 Warning (334000): Timing characteristics of device 10M50DAF484C6GES are preliminary
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Warning (334000): Timing characteristics of device 10M50DAF484C6GES are preliminary
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:03
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Warning (169177): 2 pins must meet Altera requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing MAX 10 Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
     Info (169178): Pin MAX10_RESETN uses I/O standard 3.3-V LVCMOS at D9 File: C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/src/top_pl.vhd Line: 45
     Info (169178): Pin CLK_50 uses I/O standard 3.3-V LVCMOS at J10 File: C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/src/top_pl.vhd Line: 44
@@ -1345,10 +1322,10 @@ Warning (14579): Pin CLK_50 uses I/O standard 3.3-V LVCMOS located at J10 will h
 Warning (169202): Inconsistent VCCIO across multiple banks of configuration pins. The configuration pins are contained in 2 banks in 'Internal Configuration' configuration scheme and there are 2 different VCCIOs.
 Info (144001): Generated suppressed messages file C:/Users/jorda/sandbox/JordanFWoods/DSP-Playground/imp/output_files/top_pl.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 12 warnings
-    Info: Peak virtual memory: 5892 megabytes
-    Info: Processing ended: Mon Apr 20 22:56:38 2020
-    Info: Elapsed time: 00:00:18
-    Info: Total CPU time (on all processors): 00:00:27
+    Info: Peak virtual memory: 5878 megabytes
+    Info: Processing ended: Fri May 08 22:17:11 2020
+    Info: Elapsed time: 00:00:16
+    Info: Total CPU time (on all processors): 00:00:13
 
 
 +----------------------------+

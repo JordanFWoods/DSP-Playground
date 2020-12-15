@@ -29,11 +29,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- library work;
--- use work.synth_pkg.all;
-
--- library osvvm;
--- context osvvm.OsvvmContext;
+library work;
+use work.synth_pkg.all;
 
 ------------------------------------------------
 -- entity: Top PL
@@ -69,7 +66,6 @@ begin
    --------------------------
    -- Asynchronous Actions --
    --------------------------
--- LED <= PUSH_BTN;
 
    -----------------------
    -- Processed Actions --
