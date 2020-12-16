@@ -49,7 +49,7 @@ begin
       writeline(output, line_v);
       line_v := new string'(PT.get(TRUE));
       time_v := now;
-      write(line_v, to_string(time_v));
+      write(line_v, ", " & to_string(time_v,us));
       writeline(output, line_v);
       wait for 100 us;
 
@@ -70,7 +70,7 @@ begin
             sig_v   => disc_in,
             bfm_rec  => DISC_BFM_XCVR);
 
-         Log ( LF & "Discretes  into  the core: " & to_hstring(disc_out) &
+         Log ( LF & "Discretes into the core:   " & to_hstring(disc_out) &
                LF & "Discretes out of the core: " & to_hstring(disc_in));
 
       end loop;

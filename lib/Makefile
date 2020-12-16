@@ -1,13 +1,64 @@
+################################################
+## Proprietary Property of:
+##
+## Jordan Woods
+## 312 Calle Bonita
+## Escondido CA, 92029
+##
+################################################
+## Title: Makefile
+##
+## File Name: Makefile
+##
+## Author: jordan
+##
+## Description: This is the Makefile associated
+##              with the DSP-Playground repo. It
+##              currently compiles the repo and
+##              can run individual scenarios.
+##
+################################################
+## Manual Revision History:
+## 12/23/19 - JFW - Initial Check In.
+
+######## Libraries / Variable Lists ######### 
+
+# libraries and results directory for compile
 LIBRARIES = \
 	./sim_lib/makeobj.txt \
 	./synth_lib/makeobj.txt \
 	./clk_bfm_lib/makeobj.txt \
 	./disc_bfm_lib/makeobj.txt
 
+# results directory for first compile
 RESULTS_DIR = \
-	../sim/results/makeobj.txt
+	./results/makeobj.txt
 
-# Overall Testbench - sim_lib library
+# Libraries re-listed for make clean (removal)
+rm_libs = $(addsuffix .rm, $(LIBRARIES))
+
+# List of scenarios names
+SCENARIOS = \
+	discretes \
+	template
+
+# generate list of scenario logfiles that we wish to "compile"
+log_files    = $(patsubst %,./results/%.log,$(SCENARIOS))
+# generate list of scenario compiled objects.
+SCENARIO_DAT = $(patsubst %,./sim_lib/tcb/%.dat,$(SCENARIOS))
+
+# # NOTE THESE ARE CURRENTLY UNUSED
+# # generate list of optimization objects for scenario running.
+# opt_objs     = $(patsubst %,./sim_lib/%_o/_deps,$(SCENARIOS))
+# # I still don't understand what ucdb files are for...
+# ucdb_files   = $(patsubst %,./results/%.ucdb,$(SCENARIOS))
+# # location of all scenario optimizations
+# OPT_LIBS     = $(patsubst %,./sim_lib/%_o/makeobj.txt,$(SCENARIOS))
+
+######### Normal Compile ###########
+# just run 'make'
+
+# Overall Top Level Testbench
 ./sim_lib/testbench/_primary.dat : \
 	../sim/tb_src/testbench.vhd \
 	$(LIBRARIES) \
@@ -19,23 +70,22 @@ RESULTS_DIR = \
 	./disc_bfm_lib/bfm_pkg/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
-$(LIBRARIES) :
-	vlib -type directory $(dir $@)
-	@echo "This file was written and is managed by the Makefile. Do not alter / Delete" > $@
+# Design Code
 
-$(RESULTS_DIR) : $(LIBRARIES)
-	mkdir -p $(dir $@)
-
-# DUT / SOURCE Files
+# synthesis package
 ./synth_lib/synth_pkg/_primary.dat : \
 	../src/synth_pkg.vhd
 	vcom -2008 -quiet -work synth_lib $<
 
+# top_pl
 ./synth_lib/top_pl/_primary.dat  : \
 	../src/top_pl.vhd \
 	./synth_lib/synth_pkg/_primary.dat
 	vcom -2008 -quiet -work synth_lib $<
 
+# Testbench Submodules
+
+# TCB
 ./sim_lib/tcb/_primary.dat : \
 	../sim/tb_src/tcb_e.vhd \
 	./sim_lib/tb_pkg/_primary.dat \
@@ -43,35 +93,78 @@ $(RESULTS_DIR) : $(LIBRARIES)
 	./disc_bfm_lib/disc_bfm/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
+# General Proctected Package File
 ./sim_lib/gen_prot/_primary.dat : \
 	../sim/sim_pkgs/gen_prot.vhd
 	vcom -2008 -quiet -work sim_lib $<
 
+# General Resolution Package File
 ./sim_lib/gen_res/_primary.dat : \
 	../sim/sim_pkgs/gen_res.vhd
 	vcom -2008 -quiet -work sim_lib $<
 
+# tb_pkg
 ./sim_lib/tb_pkg/_primary.dat : \
 	../sim/tb_src/tb_pkg.vhd
 	vcom -2008 -quiet -work sim_lib $<
 
+# BFM Harness
 ./sim_lib/bfm_harness/_primary.dat : \
 	../sim/tb_src/bfm_harness.vhd \
 	./clk_bfm_lib/clk_rst_bfm/_primary.dat \
 	./disc_bfm_lib/bfm_pkg/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
-# BFM Harness Files - clk_rst_lib library
+# clk_rst_lib library
 ./clk_bfm_lib/clk_rst_bfm/_primary.dat : \
 	../sim/bfm/clk_rst_bfm/clk_rst_bfm.vhd
 	vcom -2008 -quiet -work clk_bfm_lib $<
 
-# BFM Harness Files - disc_bfm_lib library
+# disc_bfm_lib bfm_pkg
 ./disc_bfm_lib/bfm_pkg/_primary.dat : \
 	../sim/bfm/disc_bfm/bfm_pkg.vhd
 	vcom -2008 -quiet -work disc_bfm_lib $<
 
+# disc_bfm_lib actual BFM compile
 ./disc_bfm_lib/disc_bfm/_primary.dat : \
 	../sim/bfm/disc_bfm/disc_bfm.vhd \
 	./disc_bfm_lib/bfm_pkg/_primary.dat
 	vcom -2008 -quiet -work disc_bfm_lib $<
+
+# Make the library directories, if needed.
+$(LIBRARIES) :
+	vlib -type directory $(dir $@)
+	@echo "This file was written and is managed by the Makefile. Do not alter / Delete" > $@
+
+# make the results directory.
+$(RESULTS_DIR) : $(LIBRARIES)
+	mkdir -p $(dir $@)
+
+##### Make Clean #######
+
+# Remove all libraries
+$(rm_libs) : %.rm :
+	rm -rf $(dir $@)
+
+# If 'make clean' is called, remove all libraries
+.PHONY: clean
+clean : $(rm_libs)
+
+######## Scenarios ######
+
+## To add later if optimizations are desired.
+#  $(opt_objs) : ./sim_lib/%_o/_deps : ./sim_lib/tcb/%.dat $(ALL_OBJS)
+#  	vopt +acc=npr -quiet -work sim_lib $* -o $*_o
+
+# Compile the TCB Architecture.
+$(SCENARIO_DAT) : ./sim_lib/tcb/%.dat : ../sim/scen/%.vhd \
+	./sim_lib/tcb/_primary.dat
+	vcom -work sim_lib -quiet -2008 $<
+
+# To "compile a logfile", run vsim, and ensure that the tcb architecture is compiled.
+$(log_files) : ./results/%.log : ./sim_lib/tcb/%.dat
+	vsim sim_lib.testbench -voptargs="+acc" "+nowarn8683"	\
+	-do sim.do -wlf ./results/$*.wlf -l ./results/$*.log
+
+# if a scenario in the list is called "compile a logfile" i.e. run vsim.
+$(SCENARIOS) : % : ./results/%.log
