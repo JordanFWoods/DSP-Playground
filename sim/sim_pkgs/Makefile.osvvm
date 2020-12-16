@@ -1,3 +1,28 @@
+################################################
+## Proprietary Property of:
+##
+## Jordan Woods
+## 312 Calle Bonita
+## Escondido CA, 92029
+##
+################################################
+## Title: Makefile for OSVVM
+##
+## File Name: Makefile
+##
+## Author: jordan
+##
+## Description: This is the Makefile associated
+##              with the OSVVM repo. It currently
+##              compiles the repo and has to be
+##              stored separately.
+##
+################################################
+## Manual Revision History:
+## 12/16/20 - JFW - Initial Check In.
+
+##### Setting up and cleaning the directory ####
+
 OSVVM_LIB_FILE = $(OSVVM_OBJ_DIR)/makeobj.txt
 
 OSVVM_OBJS = \
@@ -32,6 +57,8 @@ OSVVM_LIB = $(addsuffix .rm,$(OSVVM_LIB_FILE))
 
 $(OSVVM_LIB) : %.rm :
 	rm -rf $(dir $@)
+
+##### The actual compile dependencies ####
 
 $(OSVVM_OBJ_DIR)/namepkg/body.dat : $(OSVVM_SRC_DIR)/NamePkg.vhd \
 	$(OSVVM_LIB_FILE)
