@@ -27,6 +27,7 @@
 # ALL Path assignments need to begin with a constant
 # if the Makefile moves, only sandbox needs to change
 sandbox        = ../../..
+OSVVM          = $(sandbox)/OSVVM
 JordanFWoods   = $(sandbox)/JordanFWoods
 DSP-Playground = $(JordanFWoods)/DSP-Playground
 imp            = $(DSP-Playground)/imp
@@ -34,12 +35,17 @@ lib            = $(DSP-Playground)/lib
 sim            = $(DSP-Playground)/sim
 src            = $(DSP-Playground)/src
 
+OSVVM_OBJ_DIR  = $(lib)/osvvm/
+OSVVM_SRC_DIR  = $(OSVVM)/
+OSVVM_VCOM_OPT = -2008 -work osvvm -quiet
+
 # libraries and results directory for compile
 LIBRARIES = \
 	$(lib)/sim_lib/makeobj.txt \
 	$(lib)/synth_lib/makeobj.txt \
 	$(lib)/clk_bfm_lib/makeobj.txt \
-	$(lib)/disc_bfm_lib/makeobj.txt
+	$(lib)/disc_bfm_lib/makeobj.txt \
+	$(lib)/osvvm/make_obj.txt
 
 # results directory for first compile
 RESULTS_DIR = \
@@ -78,6 +84,7 @@ $(lib)/sim_lib/testbench/_primary.dat : \
 	$(lib)/synth_lib/top_pl/_primary.dat \
 	$(lib)/sim_lib/tb_pkg/_primary.dat \
 	$(lib)/clk_bfm_lib/clk_rst_bfm/_primary.dat \
+	$(OSVVM_OBJ_DIR)osvvmcontext/_primary.dat \
 	$(lib)/disc_bfm_lib/bfm_pkg/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
@@ -100,6 +107,7 @@ $(lib)/synth_lib/top_pl/_primary.dat  : \
 $(lib)/sim_lib/tcb/_primary.dat : \
 	$(sim)/tb_src/tcb_e.vhd \
 	$(lib)/sim_lib/tb_pkg/_primary.dat \
+	$(OSVVM_OBJ_DIR)osvvmcontext/_primary.dat \
 	$(lib)/sim_lib/gen_prot/_primary.dat \
 	$(lib)/disc_bfm_lib/disc_bfm/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
@@ -116,12 +124,14 @@ $(lib)/sim_lib/gen_res/_primary.dat : \
 
 # tb_pkg
 $(lib)/sim_lib/tb_pkg/_primary.dat : \
-	$(sim)/tb_src/tb_pkg.vhd
+	$(sim)/tb_src/tb_pkg.vhd \
+	$(OSVVM_OBJ_DIR)osvvmcontext/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
 # BFM Harness
 $(lib)/sim_lib/bfm_harness/_primary.dat : \
 	$(sim)/tb_src/bfm_harness.vhd \
+	$(OSVVM_OBJ_DIR)osvvmcontext/_primary.dat \
 	$(lib)/clk_bfm_lib/clk_rst_bfm/_primary.dat \
 	$(lib)/disc_bfm_lib/bfm_pkg/_primary.dat \
 	$(lib)/disc_bfm_lib/disc_bfm/_primary.dat
@@ -129,17 +139,20 @@ $(lib)/sim_lib/bfm_harness/_primary.dat : \
 
 # clk_rst_lib library
 $(lib)/clk_bfm_lib/clk_rst_bfm/_primary.dat : \
-	$(sim)/bfm/clk_rst_bfm/clk_rst_bfm.vhd
+	$(sim)/bfm/clk_rst_bfm/clk_rst_bfm.vhd \
+	$(OSVVM_OBJ_DIR)osvvmcontext/_primary.dat
 	vcom -2008 -quiet -work clk_bfm_lib $<
 
 # disc_bfm_lib bfm_pkg
 $(lib)/disc_bfm_lib/bfm_pkg/_primary.dat : \
-	$(sim)/bfm/disc_bfm/bfm_pkg.vhd
+	$(sim)/bfm/disc_bfm/bfm_pkg.vhd \
+	$(OSVVM_OBJ_DIR)osvvmcontext/_primary.dat
 	vcom -2008 -quiet -work disc_bfm_lib $<
 
 # disc_bfm_lib actual BFM compile
 $(lib)/disc_bfm_lib/disc_bfm/_primary.dat : \
 	$(sim)/bfm/disc_bfm/disc_bfm.vhd \
+	$(OSVVM_OBJ_DIR)osvvmcontext/_primary.dat \
 	$(lib)/disc_bfm_lib/bfm_pkg/_primary.dat
 	vcom -2008 -quiet -work disc_bfm_lib $<
 
@@ -152,6 +165,10 @@ $(LIBRARIES) :
 $(RESULTS_DIR) : $(LIBRARIES)
 	mkdir -p $(dir $@)
 
+############# Other Makefiles / Libraries #######
+
+-include ./Makefile.osvvm
+
 ##### Make Clean #######
 
 # Remove all libraries
@@ -160,7 +177,7 @@ $(rm_libs) : %.rm :
 
 # If 'make clean' is called, remove all libraries
 .PHONY: clean
-clean : $(rm_libs)
+clean : $(rm_libs) $(OSVVM_LIB)
 
 ######## Scenarios ######
 
