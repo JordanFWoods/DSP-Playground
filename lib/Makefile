@@ -23,16 +23,27 @@
 
 ######## Libraries / Variable Lists ######### 
 
+# Relative path assignments.
+# ALL Path assignments need to begin with a constant
+# if the Makefile moves, only sandbox needs to change
+sandbox        = ../../..
+JordanFWoods   = $(sandbox)/JordanFWoods
+DSP-Playground = $(JordanFWoods)/DSP-Playground
+imp            = $(DSP-Playground)/imp
+lib            = $(DSP-Playground)/lib
+sim            = $(DSP-Playground)/sim
+src            = $(DSP-Playground)/src
+
 # libraries and results directory for compile
 LIBRARIES = \
-	./sim_lib/makeobj.txt \
-	./synth_lib/makeobj.txt \
-	./clk_bfm_lib/makeobj.txt \
-	./disc_bfm_lib/makeobj.txt
+	$(lib)/sim_lib/makeobj.txt \
+	$(lib)/synth_lib/makeobj.txt \
+	$(lib)/clk_bfm_lib/makeobj.txt \
+	$(lib)/disc_bfm_lib/makeobj.txt
 
 # results directory for first compile
 RESULTS_DIR = \
-	./results/makeobj.txt
+	$(lib)/results/makeobj.txt
 
 # Libraries re-listed for make clean (removal)
 rm_libs = $(addsuffix .rm, $(LIBRARIES))
@@ -43,9 +54,9 @@ SCENARIOS = \
 	template
 
 # generate list of scenario logfiles that we wish to "compile"
-log_files    = $(patsubst %,./results/%.log,$(SCENARIOS))
+log_files    = $(patsubst %,$(lib)/results/%.log,$(SCENARIOS))
 # generate list of scenario compiled objects.
-SCENARIO_DAT = $(patsubst %,./sim_lib/tcb/%.dat,$(SCENARIOS))
+SCENARIO_DAT = $(patsubst %,$(lib)/sim_lib/tcb/%.dat,$(SCENARIOS))
 
 # # NOTE THESE ARE CURRENTLY UNUSED
 # # generate list of optimization objects for scenario running.
@@ -59,76 +70,77 @@ SCENARIO_DAT = $(patsubst %,./sim_lib/tcb/%.dat,$(SCENARIOS))
 # just run 'make'
 
 # Overall Top Level Testbench
-./sim_lib/testbench/_primary.dat : \
-	../sim/tb_src/testbench.vhd \
+$(lib)/sim_lib/testbench/_primary.dat : \
+	$(sim)/tb_src/testbench.vhd \
 	$(LIBRARIES) \
-	./sim_lib/tcb/_primary.dat \
-	./sim_lib/bfm_harness/_primary.dat \
-	./synth_lib/top_pl/_primary.dat \
-	./sim_lib/tb_pkg/_primary.dat \
-	./clk_bfm_lib/clk_rst_bfm/_primary.dat \
-	./disc_bfm_lib/bfm_pkg/_primary.dat
+	$(lib)/sim_lib/tcb/_primary.dat \
+	$(lib)/sim_lib/bfm_harness/_primary.dat \
+	$(lib)/synth_lib/top_pl/_primary.dat \
+	$(lib)/sim_lib/tb_pkg/_primary.dat \
+	$(lib)/clk_bfm_lib/clk_rst_bfm/_primary.dat \
+	$(lib)/disc_bfm_lib/bfm_pkg/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
 # Design Code
 
 # synthesis package
-./synth_lib/synth_pkg/_primary.dat : \
-	../src/synth_pkg.vhd
+$(lib)/synth_lib/synth_pkg/_primary.dat : \
+	$(src)/synth_pkg.vhd
 	vcom -2008 -quiet -work synth_lib $<
 
 # top_pl
-./synth_lib/top_pl/_primary.dat  : \
-	../src/top_pl.vhd \
-	./synth_lib/synth_pkg/_primary.dat
+$(lib)/synth_lib/top_pl/_primary.dat  : \
+	$(src)/top_pl.vhd \
+	$(lib)/synth_lib/synth_pkg/_primary.dat
 	vcom -2008 -quiet -work synth_lib $<
 
 # Testbench Submodules
 
 # TCB
-./sim_lib/tcb/_primary.dat : \
-	../sim/tb_src/tcb_e.vhd \
-	./sim_lib/tb_pkg/_primary.dat \
-	./sim_lib/gen_prot/_primary.dat \
-	./disc_bfm_lib/disc_bfm/_primary.dat
+$(lib)/sim_lib/tcb/_primary.dat : \
+	$(sim)/tb_src/tcb_e.vhd \
+	$(lib)/sim_lib/tb_pkg/_primary.dat \
+	$(lib)/sim_lib/gen_prot/_primary.dat \
+	$(lib)/disc_bfm_lib/disc_bfm/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
 # General Proctected Package File
-./sim_lib/gen_prot/_primary.dat : \
-	../sim/sim_pkgs/gen_prot.vhd
+$(lib)/sim_lib/gen_prot/_primary.dat : \
+	$(sim)/sim_pkgs/gen_prot.vhd
 	vcom -2008 -quiet -work sim_lib $<
 
 # General Resolution Package File
-./sim_lib/gen_res/_primary.dat : \
-	../sim/sim_pkgs/gen_res.vhd
+$(lib)/sim_lib/gen_res/_primary.dat : \
+	$(sim)/sim_pkgs/gen_res.vhd
 	vcom -2008 -quiet -work sim_lib $<
 
 # tb_pkg
-./sim_lib/tb_pkg/_primary.dat : \
-	../sim/tb_src/tb_pkg.vhd
+$(lib)/sim_lib/tb_pkg/_primary.dat : \
+	$(sim)/tb_src/tb_pkg.vhd
 	vcom -2008 -quiet -work sim_lib $<
 
 # BFM Harness
-./sim_lib/bfm_harness/_primary.dat : \
-	../sim/tb_src/bfm_harness.vhd \
-	./clk_bfm_lib/clk_rst_bfm/_primary.dat \
-	./disc_bfm_lib/bfm_pkg/_primary.dat
+$(lib)/sim_lib/bfm_harness/_primary.dat : \
+	$(sim)/tb_src/bfm_harness.vhd \
+	$(lib)/clk_bfm_lib/clk_rst_bfm/_primary.dat \
+	$(lib)/disc_bfm_lib/bfm_pkg/_primary.dat \
+	$(lib)/disc_bfm_lib/disc_bfm/_primary.dat
 	vcom -2008 -quiet -work sim_lib $<
 
 # clk_rst_lib library
-./clk_bfm_lib/clk_rst_bfm/_primary.dat : \
-	../sim/bfm/clk_rst_bfm/clk_rst_bfm.vhd
+$(lib)/clk_bfm_lib/clk_rst_bfm/_primary.dat : \
+	$(sim)/bfm/clk_rst_bfm/clk_rst_bfm.vhd
 	vcom -2008 -quiet -work clk_bfm_lib $<
 
 # disc_bfm_lib bfm_pkg
-./disc_bfm_lib/bfm_pkg/_primary.dat : \
-	../sim/bfm/disc_bfm/bfm_pkg.vhd
+$(lib)/disc_bfm_lib/bfm_pkg/_primary.dat : \
+	$(sim)/bfm/disc_bfm/bfm_pkg.vhd
 	vcom -2008 -quiet -work disc_bfm_lib $<
 
 # disc_bfm_lib actual BFM compile
-./disc_bfm_lib/disc_bfm/_primary.dat : \
-	../sim/bfm/disc_bfm/disc_bfm.vhd \
-	./disc_bfm_lib/bfm_pkg/_primary.dat
+$(lib)/disc_bfm_lib/disc_bfm/_primary.dat : \
+	$(sim)/bfm/disc_bfm/disc_bfm.vhd \
+	$(lib)/disc_bfm_lib/bfm_pkg/_primary.dat
 	vcom -2008 -quiet -work disc_bfm_lib $<
 
 # Make the library directories, if needed.
@@ -157,14 +169,14 @@ clean : $(rm_libs)
 #  	vopt +acc=npr -quiet -work sim_lib $* -o $*_o
 
 # Compile the TCB Architecture.
-$(SCENARIO_DAT) : ./sim_lib/tcb/%.dat : ../sim/scen/%.vhd \
-	./sim_lib/tcb/_primary.dat
+$(SCENARIO_DAT) : $(lib)/sim_lib/tcb/%.dat : $(sim)/scen/%.vhd \
+	$(lib)/sim_lib/tcb/_primary.dat
 	vcom -work sim_lib -quiet -2008 $<
 
 # To "compile a logfile", run vsim, and ensure that the tcb architecture is compiled.
-$(log_files) : ./results/%.log : ./sim_lib/tcb/%.dat
+$(log_files) : $(lib)/results/%.log : $(lib)/sim_lib/tcb/%.dat
 	vsim sim_lib.testbench -voptargs="+acc" "+nowarn8683"	\
-	-do sim.do -wlf ./results/$*.wlf -l ./results/$*.log
+	-do sim.do -wlf $(lib)/results/$*.wlf -l $(lib)/results/$*.log
 
 # if a scenario in the list is called "compile a logfile" i.e. run vsim.
-$(SCENARIOS) : % : ./results/%.log
+$(SCENARIOS) : % : $(lib)/results/%.log
