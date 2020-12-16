@@ -1,0 +1,174 @@
+################################################
+## Proprietary Property of:
+##
+## Jordan Woods
+## 312 Calle Bonita
+## Escondido CA, 92029
+##
+################################################
+## Title: Makefile for OSVVM
+##
+## File Name: Makefile
+##
+## Author: jordan
+##
+## Description: This is the Makefile associated
+##              with the OSVVM repo. It currently
+##              compiles the repo and has to be
+##              stored separately.
+##
+################################################
+## Manual Revision History:
+## 12/16/20 - JFW - Initial Check In.
+
+##### Setting up and cleaning the directory ####
+
+OSVVM_LIB_FILE = $(OSVVM_OBJ_DIR)/makeobj.txt
+
+OSVVM_OBJS = \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/namepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/vendorcovapipkg/body.dat \
+	$(OSVVM_OBJ_DIR)/transcriptpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/textutilpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/messagepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/sortlistpkg_int/body.dat \
+	$(OSVVM_OBJ_DIR)/randombasepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/randompkg/body.dat \
+	$(OSVVM_OBJ_DIR)/coveragepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/memorypkg/body.dat \
+	$(OSVVM_OBJ_DIR)/scoreboardgenericpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/scoreboardpkg_slv/_primary.dat \
+	$(OSVVM_OBJ_DIR)/scoreboardpkg_int/_primary.dat \
+	$(OSVVM_OBJ_DIR)/resolutionpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/tbutilpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmcontext/_primary.dat
+
+# The mkdir command makes the entire directory path
+# The rmdir command removes the directory which will be made by the VLIB command.
+$(OSVVM_LIB_FILE) :
+	vlib -type directory $(dir $@)
+	@echo "This file was written and is managed by the Makefile. Do not alter / delete" > $@
+
+# Add a .rm suffix to the file name. This will make a phony target which will always cause the clean target to be executed
+OSVVM_LIB = $(addsuffix .rm,$(OSVVM_LIB_FILE))
+
+$(OSVVM_LIB) : %.rm :
+	rm -rf $(dir $@)
+
+##### The actual compile dependencies ####
+
+$(OSVVM_OBJ_DIR)/namepkg/body.dat : $(OSVVM_SRC_DIR)/NamePkg.vhd \
+	$(OSVVM_LIB_FILE)
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat : $(OSVVM_SRC_DIR)/OsvvmGlobalPkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/namepkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/vendorcovapipkg/body.dat : $(OSVVM_SRC_DIR)/VendorCovApiPkg.vhd \
+	$(OSVVM_LIB_FILE)
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/transcriptpkg/body.dat : $(OSVVM_SRC_DIR)/TranscriptPkg.vhd \
+	$(OSVVM_LIB_FILE)
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/textutilpkg/body.dat : $(OSVVM_SRC_DIR)/TextUtilPkg.vhd \
+	$(OSVVM_LIB_FILE)
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat : $(OSVVM_SRC_DIR)/AlertLogPkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/transcriptpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/textutilpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/messagepkg/body.dat : $(OSVVM_SRC_DIR)/MessagePkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/sortlistpkg_int/body.dat : $(OSVVM_SRC_DIR)/SortListPkg_int.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/randombasepkg/body.dat : $(OSVVM_SRC_DIR)/RandomBasePkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/randompkg/body.dat : $(OSVVM_SRC_DIR)/RandomPkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/randombasepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/sortlistpkg_int/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/coveragepkg/body.dat : $(OSVVM_SRC_DIR)/CoveragePkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/textutilpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/transcriptpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/randombasepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/randompkg/body.dat \
+	$(OSVVM_OBJ_DIR)/namepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/messagepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/vendorcovapipkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/memorypkg/body.dat : $(OSVVM_SRC_DIR)/MemoryPkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/textutilpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/transcriptpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/scoreboardgenericpkg/body.dat : $(OSVVM_SRC_DIR)/ScoreboardGenericPkg.vhd \
+	$(OSVVM_LIB_FILE)
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/scoreboardpkg_slv/_primary.dat : $(OSVVM_SRC_DIR)/ScoreboardPkg_slv.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/scoreboardgenericpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/scoreboardpkg_int/_primary.dat : $(OSVVM_SRC_DIR)/ScoreboardPkg_int.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/scoreboardgenericpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/resolutionpkg/body.dat : $(OSVVM_SRC_DIR)/ResolutionPkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/tbutilpkg/body.dat : $(OSVVM_SRC_DIR)/TbUtilPkg.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/transcriptpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
+
+$(OSVVM_OBJ_DIR)/osvvmcontext/_primary.dat : $(OSVVM_SRC_DIR)/OsvvmContext.vhd \
+	$(OSVVM_LIB_FILE) \
+	$(OSVVM_OBJ_DIR)/namepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/transcriptpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/textutilpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/osvvmglobalpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/alertlogpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/randompkg/body.dat \
+	$(OSVVM_OBJ_DIR)/coveragepkg/body.dat \
+	$(OSVVM_OBJ_DIR)/memorypkg/body.dat \
+	$(OSVVM_OBJ_DIR)/resolutionpkg/body.dat \
+	$(OSVVM_OBJ_DIR)/tbutilpkg/body.dat
+	vcom $(OSVVM_VCOM_OPT) $<
