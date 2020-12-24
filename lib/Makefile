@@ -21,7 +21,7 @@
 ## Manual Revision History:
 ## 12/16/20 - JFW - Initial Check In.
 
-######## Libraries / Variable Lists ######### 
+######## Libraries / Variable Lists #########
 
 # Relative path assignments.
 # ALL Path assignments need to begin with a constant
@@ -193,7 +193,7 @@ $(log_files) : $(lib)/results/%.log : $(lib)/sim_lib/tcb/%.dat \
 	-do $(sim)/scen/sim.do -wlf $(lib)/results/$*.wlf -l $(lib)/results/$*.log
 
 # if a scenario in the list is called "compile a logfile" i.e. run vsim.
-$(SCENARIOS) : % : $(lib)/results/%.log \
+$(SCENARIOS) : % : $(lib)/results/%.log
 
 # # NOTE THESE ARE CURRENTLY UNUSED
 # # generate list of optimization objects for scenario running.

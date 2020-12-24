@@ -27,7 +27,7 @@
 --                   in the entity file.
 ------------------------------------------------
 -- entity: Testbench Control Block
-architecture behave of tcb is
+architecture discretes of tcb is
  -- architecture declarative region
 begin
 
@@ -77,7 +77,7 @@ begin
 
       std.env.finish;
    end process main_proc;
-end architecture behave;
+end architecture discretes;
 
 ------------------------------------------------
 -- configuration: One needed per Scenario.
