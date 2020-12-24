@@ -58,8 +58,8 @@ architecture structure of top_pl is
    ---------------------------
    -- Constant Declarations --
    ---------------------------
-   constant C_LED_DLY     : integer := 1; -- in microseconds
-   --
+   constant C_LED_DLY     : integer := 500_000*2; -- in microseconds
+   -- 1 us * 1 MHz = 1...
    constant C_LED_CNT_DLY : unsigned(31 downto 0) := to_unsigned(C_LED_DLY * 50,32);
 begin
    --------------------------
