@@ -88,12 +88,12 @@ package bfm_pkg is
    begin
 
       bfm_rec.r_nwr <= '0';
+      bfm_rec.disc_out <= C_SIG;
 
       RequestTransaction (
          Rdy => bfm_rec.Rdy,
          Ack => bfm_rec.Ack);
 
-      bfm_rec.disc_out <= C_SIG;
    end procedure set_output_signals;
 
    procedure get_input_signals (

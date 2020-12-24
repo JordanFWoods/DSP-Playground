@@ -55,7 +55,7 @@ begin
 
       write(line_v, string'("Stimulating the Discretes."));
       writeline(output, line_v);
-      for i in 1 to 2**5 loop
+      for i in 0 to 2**5+1 loop
          disc_out := std_logic_vector(to_unsigned(i,C_DISC_LEN));
          write(line_v, string'("Setting output Discretes."));
          writeline(output, line_v);
@@ -72,6 +72,10 @@ begin
 
          Log ( LF & "Discretes into the core:   " & to_hstring(disc_out) &
                LF & "Discretes out of the core: " & to_hstring(disc_in));
+
+         for i in 1 to 3 loop
+            wait until rising_edge(CLK);
+         end loop;
 
       end loop;
 

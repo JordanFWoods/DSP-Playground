@@ -188,12 +188,13 @@ $(SCENARIO_DAT) : $(lib)/sim_lib/tcb/%.dat : $(sim)/scen/%.vhd \
 
 # To "compile a logfile", run vsim, and ensure that the tcb architecture is compiled.
 $(log_files) : $(lib)/results/%.log : $(lib)/sim_lib/tcb/%.dat \
+	$(lib)/sim_lib/testbench/_primary.dat \
 	$(RESULTS_DIR)
 	vsim sim_lib.testbench $(VSIM_OPT) \
 	-do $(sim)/scen/sim.do -wlf $(lib)/results/$*.wlf -l $(lib)/results/$*.log
 
 # if a scenario in the list is called "compile a logfile" i.e. run vsim.
-$(SCENARIOS) : % : $(lib)/results/%.log
+$(SCENARIOS) : % : $(lib)/results/%.log $(lib)/sim_lib/testbench/_primary.dat
 
 # # NOTE THESE ARE CURRENTLY UNUSED
 # # generate list of optimization objects for scenario running.
