@@ -40,7 +40,7 @@ context osvvm.OsvvmContext;
 -- entity: generic bfm
 entity disc_bfm is
    generic (
-      G_GENERIC : boolean := false
+      G_RST_LOW : boolean := false
    );
    port (
       CLK      : in    std_logic;
@@ -52,7 +52,6 @@ entity disc_bfm is
 end entity disc_bfm;
 
 architecture behave of disc_bfm is
-   signal initialized : boolean := false;
 begin
 
    main_proc : process is
@@ -67,7 +66,11 @@ begin
          Enable => false
       );
       wait until RST = '0';
-      initialized <= true;
+      if G_RST_LOW then
+         DISC_OUT <= (others => '0');
+      else
+         DISC_OUT <= (others => '1');
+      end if;
 
       loop
          WaitForTransaction (

@@ -53,12 +53,14 @@ architecture structure of top_pl is
    -- Signal Declarations --
    -------------------------
    signal counter : unsigned(31 downto 0);
-   signal led_cnt : unsigned( 3 downto 0); 
+   signal led_cnt : unsigned( 3 downto 0);
 
    ---------------------------
    -- Constant Declarations --
    ---------------------------
-
+   constant C_LED_DLY     : integer := 1; -- in microseconds
+   --
+   constant C_LED_CNT_DLY : unsigned(31 downto 0) := to_unsigned(C_LED_DLY * 50,32);
 begin
    --------------------------
    -- Asynchronous Actions --
@@ -70,13 +72,13 @@ begin
    out_proc : process (CLK_50) is
       begin
          if rising_edge(CLK_50) then
-            if MAX10_RESETN = '0' then
+            if MAX10_RESETN /= '1' then
                LED <= (others => '0');
             else
                if DIP_SW(0) = '0' then
                   LED <= PUSH_BTN;
                else
-                  LED <= std_logic_vector(led_cnt); 
+                  LED <= std_logic_vector(led_cnt);
                end if;
             end if;
          end if;
@@ -85,14 +87,16 @@ begin
    cntr_proc : process (CLK_50) is
       begin
          if rising_edge(CLK_50) then
-            if MAX10_RESETN = '0' then
+            if MAX10_RESETN /= '1' then
                counter <= (others => '0');
                led_cnt <= (others => '0');
-            elsif counter = x"017D7840" then -- 250000 / 50 MHz = 0.5 s
-               counter <= (others => '0'); 
-               led_cnt <= led_cnt + 1;
             else
-               counter <= counter + 1;
+               if counter = C_LED_CNT_DLY-1 then -- x"017D7840" then -- 250000 / 50 MHz = 0.5 s
+                  counter <= (others => '0');
+                  led_cnt <= led_cnt + 1;
+               else
+                  counter <= counter + 1;
+               end if;
             end if;
          end if;
       end process cntr_proc;

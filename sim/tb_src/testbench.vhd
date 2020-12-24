@@ -34,6 +34,9 @@ use ieee.numeric_std.all;
 library work;
 use work.tb_pkg.all;
 
+library synth_lib;
+use synth_lib.synth_pkg.all;
+
 library clk_bfm_lib;
 use clk_bfm_lib.all;
 
@@ -95,9 +98,9 @@ architecture behave of testbench is
    signal rst           : std_logic    := '0';
    signal rst_n         : std_logic    := '0';
    signal done          : std_logic    := '0';
-   signal dip_sw        : std_logic_vector(0 downto 0);
-   signal led           : std_logic_vector(3 downto 0);
-   signal push_btn      : std_logic_vector(3 downto 0);
+   signal dip_sw        : std_logic_vector(0 downto 0) := (others => '0');
+   signal led           : std_logic_vector(3 downto 0) := (others => '0');
+   signal push_btn      : std_logic_vector(3 downto 0) := (others => '0');
    signal disc_bfm_xcvr : disc_bfm_xcvr_rec; -- := C_INIT_BFM_XCVR;
 
    ---------------------------

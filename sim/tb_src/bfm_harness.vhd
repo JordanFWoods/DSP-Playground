@@ -77,7 +77,7 @@ architecture structure of bfm_harness is
 
    component disc_bfm
    generic (
-      G_GENERIC : boolean := false
+      G_RST_LOW : boolean := false
    );
    port (
       CLK      : in    std_logic;
@@ -92,8 +92,8 @@ architecture structure of bfm_harness is
    -------------------------
    signal clk_int  : std_logic := '0';
    signal rst_int  : std_logic := '0';
-   signal disc_in  : std_logic_vector(C_DISC_LEN-1 downto 0);
-   signal disc_out : std_logic_vector(C_DISC_LEN-1 downto 0);
+   signal disc_in  : std_logic_vector(C_DISC_LEN-1 downto 0) := (others => '0');
+   signal disc_out : std_logic_vector(C_DISC_LEN-1 downto 0) := (others => '0');
    ---------------------------
    -- Constant Declarations --
    ---------------------------
@@ -111,7 +111,7 @@ begin
    --------------------------
    u0_clk_rst_bfm : clk_rst_bfm
    generic map (
-      CLK_PER    => 100 ns,
+      CLK_PER    => 20 ns,
       RST_SETUP  => 0 ns,
       RST_PWIDTH => 1 us
    )
@@ -129,7 +129,7 @@ begin
    disc_in(3 downto 0) <= LED;
    u_disc_bfm : disc_bfm
    generic map (
-      G_GENERIC => true
+      G_RST_LOW => false
    )
    port map (
       CLK       => clk_int,
