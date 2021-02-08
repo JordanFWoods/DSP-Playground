@@ -30,6 +30,7 @@ CLK_RST_MK_LIB = $(CLK_RST_OBJ)/makeobj.txt
 $(CLK_RST_MK_LIB) :
 	vlib -type directory $(dir $@)
 	@echo "This file was written and is managed by the Makefile. Do not alter / delete" > $@
+	vmap -quiet $(patsubst $(lib)/%/, %, $(dir $@)) $(dir $@)
 
 # Add a .rm suffix to the file name. This will make a phony target which will always cause the clean target to be executed
 CLK_RST_RM_LIB = $(addsuffix .rm,$(CLK_RST_MK_LIB))

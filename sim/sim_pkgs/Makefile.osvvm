@@ -51,6 +51,7 @@ OSVVM_OBJS = \
 $(OSVVM_LIB_FILE) :
 	vlib -type directory $(dir $@)
 	@echo "This file was written and is managed by the Makefile. Do not alter / delete" > $@
+	vmap -quiet $(patsubst $(lib)/%/, %, $(dir $@)) $(dir $@)
 
 # Add a .rm suffix to the file name. This will make a phony target which will always cause the clean target to be executed
 OSVVM_LIB = $(addsuffix .rm,$(OSVVM_LIB_FILE))

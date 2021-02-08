@@ -20,7 +20,7 @@
 ################################################
 ## Manual Revision History:
 ## 12/16/20 - JFW - Initial Check In.
-
+##
 ######## Libraries / Variable Lists #########
 
 # Relative path assignments.
@@ -163,6 +163,7 @@ $(lib)/sim_lib/bfm_harness/_primary.dat : \
 $(LIBRARIES) :
 	vlib -type directory $(dir $@)
 	@echo "This file was written and is managed by the Makefile. Do not alter / Delete" > $@
+	vmap -quiet $(patsubst $(lib)/%/, %, $(dir $@)) $(dir $@)
 
 # make the results directory.
 $(RESULTS_DIR) : $(LIBRARIES)
@@ -194,7 +195,9 @@ $(log_files) : $(lib)/results/%.log : $(lib)/sim_lib/tcb/%.dat \
 	-do $(sim)/scen/sim.do -wlf $(lib)/results/$*.wlf -l $(lib)/results/$*.log
 
 # if a scenario in the list is called "compile a logfile" i.e. run vsim.
-$(SCENARIOS) : % : $(lib)/results/%.log $(lib)/sim_lib/testbench/_primary.dat
+$(SCENARIOS) : % : $(lib)/results/%.log \
+	$(lib)/sim_lib/testbench/_primary.dat \
+	$(lib)/sim_lib/tcb/%.dat
 
 # # NOTE THESE ARE CURRENTLY UNUSED
 # # generate list of optimization objects for scenario running.

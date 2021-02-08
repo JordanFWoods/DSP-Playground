@@ -30,6 +30,7 @@ DISC_BFM_MK_LIB = $(DISC_BFM_OBJ)/makeobj.txt
 $(DISC_BFM_MK_LIB) :
 	vlib -type directory $(dir $@)
 	@echo "This file was written and is managed by the Makefile. Do not alter / Delete" > $@
+	vmap -quiet $(patsubst $(lib)/%/, %, $(dir $@)) $(dir $@)
 
 # Add a .rm suffix to the file name. This will make a phony target which will always cause the clean target to be executed
 DISC_BFM_RM_LIB = $(addsuffix .rm,$(DISC_BFM_MK_LIB))
