@@ -44,7 +44,8 @@ end architecture template;
 configuration template_cfg of testbench is
    for behave -- testbench.vhd
       for u_tcb : tcb
-         use entity work.tcb(template);
+         use entity work.tcb(template)
+         generic map (G_SCENARIO => "discretes");
       end for; -- tcb.vhd
    -- for u_uut : top_pl
    -- end for; -- top_pl.vhd

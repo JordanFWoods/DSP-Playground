@@ -88,7 +88,8 @@ end architecture discretes;
 configuration discretes_cfg of testbench is
    for behave -- testbench.vhd
       for u_tcb : tcb
-         use entity work.tcb(discretes);
+         use entity work.tcb(discretes)
+         generic map (G_SCENARIO => "discretes");
       end for; -- tcb.vhd
    -- for u_uut : top_pl
    -- end for; -- top_pl.vhd

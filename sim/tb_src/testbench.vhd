@@ -21,6 +21,7 @@
 ------------------------------------------------
 -- Manual Revision History:
 -- 12/23/19 - JFW - Initial Check In.
+-- 02/23/21 - JFW - Moved Generic Declaration from testbench to TCB.
 --
 ------------------------------------------------
 -- Libraries:
@@ -49,7 +50,6 @@ context osvvm.OsvvmContext;
 ------------------------------------------------
 -- entity: testbench
 entity testbench is
-   generic (G_SCENARIO : string := "template");
 end entity;
 
 architecture behave of testbench is
@@ -81,7 +81,7 @@ architecture behave of testbench is
 
       component tcb is
          generic (
-            G_SCENARIO : string := G_SCENARIO
+            G_SCENARIO : string := "testbench"
          );
          port (
             CLK           : in    std_logic;
@@ -119,7 +119,7 @@ begin
    -----------------------------
    u_tcb : tcb
    generic map (
-      G_SCENARIO => G_SCENARIO
+      G_SCENARIO => "testbench"
    )  port map (
       CLK           => clk,
       RST           => rst,
